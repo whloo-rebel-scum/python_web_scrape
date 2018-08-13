@@ -66,3 +66,23 @@ weather = pd.DataFrame({
 })
 
 print(weather)
+
+# Weather test 2: Weather Channel
+page = requests.get(
+    "https://weather.com/weather/tenday/l/USCA0284:1:US")
+soup = BeautifulSoup(page.content, 'html.parser')
+ten_day = soup.find_all('td', class_="twc-sticky-col", classname="twc-sticky-col")
+hilo = soup.find_all('td', class_="temp", headers="hi-lo")
+# how to parse an individual element in a list?
+print(hilo)
+days = [d.get_text() for d in soup.find_all(class_="date-time")]
+short_descs = [sd['title'] for sd in ten_day]
+print(days)
+print(short_descs)
+
+weather2 = pd.DataFrame({
+    "days": days,
+    "short_desc": short_descs
+})
+
+print(weather2)
