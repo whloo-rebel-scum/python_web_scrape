@@ -72,21 +72,23 @@ page = requests.get(
     "https://weather.com/weather/tenday/l/USCA0284:1:US")
 soup = BeautifulSoup(page.content, 'html.parser')
 ten_day = soup.find_all('td', class_="twc-sticky-col", classname="twc-sticky-col")
-hilo = soup.find_all('td', class_="temp", headers="hi-lo")
-# how to parse an individual element in a list?
-print(hilo[0].prettify())
-hi = hilo[0].find('span', class_="").get_text()
-lo = hilo[0].find_all('span', class_="")[1].get_text()
-print(hi)
-print(lo)
 days = [d.get_text() for d in soup.find_all(class_="date-time")]
 short_descs = [sd['title'] for sd in ten_day]
 print(days)
 print(short_descs)
 
+# Parse high and low temps
+hilo = soup.find_all('td', class_="temp", headers="hi-lo")
+highs = [h.find('span', class_="").get_text() for h in hilo]
+lows = [l.find_all('span', class_="")[1].get_text() for l in hilo]
+print(highs)
+print(lows)
+
 weather2 = pd.DataFrame({
     "days": days,
-    "short_desc": short_descs
+    "short_desc": short_descs,
+    "HIGH": highs,
+    "LOWS": lows
 })
 
 print(weather2)
