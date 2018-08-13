@@ -74,7 +74,11 @@ soup = BeautifulSoup(page.content, 'html.parser')
 ten_day = soup.find_all('td', class_="twc-sticky-col", classname="twc-sticky-col")
 hilo = soup.find_all('td', class_="temp", headers="hi-lo")
 # how to parse an individual element in a list?
-print(hilo)
+print(hilo[0].prettify())
+hi = hilo[0].find('span', class_="").get_text()
+lo = hilo[0].find_all('span', class_="")[1].get_text()
+print(hi)
+print(lo)
 days = [d.get_text() for d in soup.find_all(class_="date-time")]
 short_descs = [sd['title'] for sd in ten_day]
 print(days)
