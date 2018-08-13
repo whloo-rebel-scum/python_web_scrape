@@ -84,11 +84,22 @@ lows = [l.find_all('span', class_="")[1].get_text() for l in hilo]
 print(highs)
 print(lows)
 
+# Parse precipitation and humidity
+precip = soup.find_all('td', class_="precip")
+prec = [p.get_text() for p in precip]
+print(prec)
+humidity = soup.find_all('td', class_="humidity")
+humid = [h.get_text() for h in humidity]
+print(humid)
+
 weather2 = pd.DataFrame({
     "days": days,
     "short_desc": short_descs,
     "HIGH": highs,
-    "LOWS": lows
+    "LOWS": lows,
+    "Precipitation": prec,
+    "Humidity": humid
+
 })
 
 print(weather2)
