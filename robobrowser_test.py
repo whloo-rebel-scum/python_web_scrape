@@ -1,12 +1,13 @@
 import re # regular expressions
+import requests
 from robobrowser import RoboBrowser
+from bs4 import BeautifulSoup
 
 # Browse to Rap Genius
 browser = RoboBrowser(history=True)
-browser.open('http://rapgenius.com/')
-
+browser.open("http://genius.com/")
 # Search for Queen
-form = browser.get_form(action='/search')
+form = browser.get_form(action="/search") # why doesn't this work?
 form                # <RoboForm  q=>
 form['q'].value = 'queen'
 browser.submit_form(form)
