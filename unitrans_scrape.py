@@ -22,11 +22,17 @@ for link in browser.get_current_page().select('a.result__a'):
 
 url = 'https://unitrans.ucdavis.edu/routes/W/prediction'
 
+'''
 with requests.Session() as session:
     response = session.get(url)
     soup = BeautifulSoup(response.content, "lxml")
     print(soup.find_all(class_='time'))
+'''
 
+page = requests.get(url)
+soup = BeautifulSoup(page.content, 'html.parser')
+print(soup.find_all('option'))
+print(soup.find_all('p', id="prediction-notice"))
 
 
 
