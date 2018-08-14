@@ -11,5 +11,7 @@ Currently testing web scraping on weather data, from:
 - https://weather.com/weather/tenday/l/USCA0284:1:US
 
 TODO: Learning RoboBrowser: http://robobrowser.readthedocs.io/en/latest/readme.html
+- use selenium instead?
+
 
 TODO: gather data from Unitrans Website: https://unitrans.ucdavis.edu/routes/W/prediction
