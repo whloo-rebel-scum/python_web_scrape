@@ -5,10 +5,10 @@ from bs4 import BeautifulSoup
 
 # Browse to Rap Genius
 browser = RoboBrowser(history=True, parser='html.parser')
-browser.open("http://genius.com/")
+browser.open('http://genius.com/')
 # Search for Queen
-form = browser.get_form(action="/search")# why doesn't this work?
-form                # <RoboForm  q=>
+form = browser.get_form(action='/search')# why doesn't this work?
+print(form)                # <RoboForm q=>
 # form['q'].value = 'queen'
 # browser.submit_form(form)
 
