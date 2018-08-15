@@ -4,12 +4,13 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
+
 # Specifying incognito mode as you launch your browser[OPTIONAL]
 option = webdriver.ChromeOptions()
 option.add_argument("--incognito")
 
 # Create new Instance of Chrome in incognito mode
-browser = webdriver.Chrome(executable_path='/Library/Application Support/Google/chromedriver', chrome_options=option)
+browser = webdriver.Chrome(executable_path='C:\\Users\\whloo\\PycharmProjects\\chromedriver.exe', chrome_options=option)
 
 # Go to desired website
 browser.get("https://github.com/TheDancerCodes")
@@ -24,7 +25,7 @@ try:
 except TimeoutException:
     print("Timed out waiting for page to load")
     browser.quit()
-
+'''
 # Get all of the titles for the pinned repositories
 # We are not just getting pure titles but we are getting a selenium object
 # with selenium elements of the titles.
@@ -52,3 +53,4 @@ print(languages, '\n')
 for title, language in zip(titles, languages):
     print("RepoName : Language")
     print(title + ": " + language, '\n')
+'''
