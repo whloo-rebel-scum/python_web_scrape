@@ -25,7 +25,7 @@ try:
 except TimeoutException:
     print("Timed out waiting for page to load")
     browser.quit()
-'''
+
 # Get all of the titles for the pinned repositories
 # We are not just getting pure titles but we are getting a selenium object
 # with selenium elements of the titles.
@@ -47,8 +47,8 @@ languages = [x.text for x in language_element] # same concept as for-loop/ list-
 
 # print response in terminal
 print("LANGUAGES:")
-print(languages, '\n')
-
+print(languages, '\n') # how to get rid of extra numbers?
+'''
 # Pair each title with its corresponding language using zip function and print each pair
 for title, language in zip(titles, languages):
     print("RepoName : Language")
