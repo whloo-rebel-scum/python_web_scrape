@@ -1,5 +1,6 @@
 # Python Web Scraping
 Following a tutorial: https://www.dataquest.io/blog/web-scraping-tutorial-python/
+Selenium tutorial: https://medium.com/the-andela-way/introduction-to-web-scraping-using-selenium-7ec377a8cf72
 
 Utilizes:
 - BeautifulSoup
