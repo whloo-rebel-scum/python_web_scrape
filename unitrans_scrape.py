@@ -23,7 +23,7 @@ except TimeoutException:
 silo_arrival_times = browser.find_elements_by_xpath("//span[@class='time']")
 arrival_times = silo_arrival_times[0].text
 print('W LINE ARRIVAL TIMES (SILO): ', arrival_times, '\n')
-
+browser.close()
 
 
 
