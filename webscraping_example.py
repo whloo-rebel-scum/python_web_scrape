@@ -48,9 +48,8 @@ languages = [x.text for x in language_element] # same concept as for-loop/ list-
 # print response in terminal
 print("LANGUAGES:")
 print(languages, '\n') # how to get rid of extra numbers?
-'''
+
 # Pair each title with its corresponding language using zip function and print each pair
 for title, language in zip(titles, languages):
     print("RepoName : Language")
     print(title + ": " + language, '\n')
-'''
