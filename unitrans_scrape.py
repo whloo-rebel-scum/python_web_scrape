@@ -46,7 +46,14 @@ for r in select_route.options:
     times = list()  # when the next bus is predicted to arrive for each stop
     in_out_bound = list()  # list of inbound/outbound labels for each stop
     select_direction = Select(browser.find_element_by_id('direction-select'))
+    try:
+        WebDriverWait(browser, timeout).until(EC.visibility_of_element_located(
+            (By.XPATH, "//span[@class='time']")))
+    except TimeoutException:
+        print("Timed out waiting for page to load")
+        browser.quit()
 
+    # TODO: deal with F line having only one direction option
     for d in select_direction.options[1:]:  # skip the very first option for direction
         select_direction.select_by_visible_text(d.text)  # select the direction
         select_stop = Select(browser.find_element_by_id('stop-select'))  # get local stops for that direction
@@ -58,8 +65,12 @@ for r in select_route.options:
             stops.append(stop.group(1))  # regex to remove cardinal directions
             arrival_times = browser.find_elements_by_xpath("//span[@class='time']")
             a_t = arrival_times[0].text
-            next_bus = re.match(r'(.*?)(,?)(.*?)', a_t)  # regex to shorten to two
-            times.append(next_bus.group(1) + 'm')
+            next_bus = re.match(r'(.*)(,?)(.*)', a_t)  # TODO regex to shorten to two
+            # check if there are no more buses for the day
+            if next_bus.group(1) != "":
+                times.append(next_bus.group(1) + 'm')
+            else:
+                times.append('no buses')
 
     # put data into data frame
     Line = pd.DataFrame({
