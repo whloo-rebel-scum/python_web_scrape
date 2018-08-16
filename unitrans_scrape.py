@@ -1,11 +1,11 @@
-# Web-Scraping on the UC Davis Unitrans website (W Line focus)
+# Web-Scraping on the UC Davis Unitrans website
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.support.ui import Select  # for controlling dropdown boxes
+from selenium.webdriver.support.ui import Select  # for controlling drop-down boxes
 import pandas as pd
 import re
 
@@ -13,7 +13,7 @@ option = webdriver.ChromeOptions()
 option.add_argument("--incognito")
 browser = webdriver.Chrome(executable_path='C:\\Users\\whloo\\PycharmProjects\\chromedriver.exe',
                            chrome_options=option)
-browser.get("https://unitrans.ucdavis.edu/routes/W/prediction")
+browser.get("https://unitrans.ucdavis.edu/routes/A/prediction")
 timeout = 20
 try:
     # Wait until the final element is loaded.
@@ -36,34 +36,40 @@ select_stop.select_by_value('22000')
 '''
 
 # printing all stops with predicted arrival times
+lines = list()  # list of data frames of bus routes
 select_route = Select(browser.find_element_by_id('route-select'))
-print(select_route.first_selected_option.text, 'LINE STOP PREDICTIONS', '\n')
-# the following lists will be put into a data frame
-stops = list()  # list of names of bus stops
-times = list()  # when the next bus is predicted to arrive for each stop
-in_out_bound = list() # list of inbound/outbound labels for each stop
+for r in select_route.options:
+    select_route.select_by_visible_text(r.text)  # select route
+    print(r.text, 'LINE STOP PREDICTIONS', '\n')
+    # the following lists will be put into data frames
+    stops = list()  # list of names of bus stops
+    times = list()  # when the next bus is predicted to arrive for each stop
+    in_out_bound = list()  # list of inbound/outbound labels for each stop
+    select_direction = Select(browser.find_element_by_id('direction-select'))
 
-select_direction = Select(browser.find_element_by_id('direction-select'))
-for d in select_direction.options[1:]:  # skip the very first option for direction
-    select_direction.select_by_visible_text(d.text)  # select the direction
-    select_stop = Select(browser.find_element_by_id('stop-select'))  # get local stops for that direction
-    for o in select_stop.options:
-        direction = re.match(r'(.*) to (.*)', d.text)  # regular expressions to shorten to Inbound/Outbound
-        in_out_bound.append(direction.group(1))
-        select_stop.select_by_visible_text(o.text)  # select stop
-        stop = re.match(r'(.*)\((.*)', o.text)
-        stops.append(stop.group(1))  # regex to remove cardinal directions
-        arrival_times = browser.find_elements_by_xpath("//span[@class='time']")
-        a_t = arrival_times[0].text
-        next_bus = re.match(r'(.*), (.*)?', a_t)  # regex to shorten to two
-        times.append(next_bus.group(1) + 'm')
+    for d in select_direction.options[1:]:  # skip the very first option for direction
+        select_direction.select_by_visible_text(d.text)  # select the direction
+        select_stop = Select(browser.find_element_by_id('stop-select'))  # get local stops for that direction
+        for o in select_stop.options:
+            direction = re.match(r'(.*) to (.*)', d.text)  # regular expressions to shorten to Inbound/Outbound
+            in_out_bound.append(direction.group(1))
+            select_stop.select_by_visible_text(o.text)  # select stop
+            stop = re.match(r'(.*)\((.*)', o.text)
+            stops.append(stop.group(1))  # regex to remove cardinal directions
+            arrival_times = browser.find_elements_by_xpath("//span[@class='time']")
+            a_t = arrival_times[0].text
+            next_bus = re.match(r'(.*?)(,?)(.*?)', a_t)  # regex to shorten to two
+            times.append(next_bus.group(1) + 'm')
 
-# put data into data frame
-WLine = pd.DataFrame({
-    "Direction": in_out_bound,
-    "Stop": stops,
-    "Next Bus": times
-})
+    # put data into data frame
+    Line = pd.DataFrame({
+        "Direction": in_out_bound,
+        "Stop": stops,
+        "Next Bus": times
+    })
 
-print(WLine)
+    print(Line)
+    lines.append(Line)
+    # end loop
+
 browser.close()
