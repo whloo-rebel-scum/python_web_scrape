@@ -22,19 +22,26 @@ except TimeoutException:
     print("Timed out waiting for page to load")
     browser.quit()
 
-arrival_times = browser.find_elements_by_xpath("//span[@class='time']")
-a_t = arrival_times[0].text
-print('W LINE ARRIVAL TIMES', '\n')
-print('SILO AND CENTER ISLAND (E): ', a_t, '\n')
-
+# examples of controlling drop-down boxes in code below
 # find the correct select tag
 select_stop = Select(browser.find_element_by_id('stop-select'))
+'''
 # select by visible text
 select_stop.select_by_visible_text('Hutchison & Art Building (E)')
 # select by value (Hutchison and Old Davis (E)
 select_stop.select_by_value('22000')
 # test print of all options
 [print(o.text) for o in select_stop.options]
+'''
+
+# printing all stops with predicted arrival times
+print('W LINE STOP PREDICTIONS', '\n')
+for o in select_stop.options:
+    select_stop.select_by_visible_text(o.text) # select stop
+    arrival_times = browser.find_elements_by_xpath("//span[@class='time']")
+    a_t = arrival_times[0].text
+    print(o.text, ": ", a_t, '\n')
+
 browser.close()
 
 
