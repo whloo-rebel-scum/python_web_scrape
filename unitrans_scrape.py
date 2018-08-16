@@ -1,11 +1,11 @@
-# Web-Scraping on the UC Davis Unitrans website (W Line)
+# Web-Scraping on the UC Davis Unitrans website (W Line focus)
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.support.ui import Select # for controlling dropdown boxes
+from selenium.webdriver.support.ui import Select  # for controlling dropdown boxes
 import pandas as pd
 
 option = webdriver.ChromeOptions()
@@ -23,9 +23,9 @@ except TimeoutException:
     browser.quit()
 
 # examples of controlling drop-down boxes in code below
+'''
 # find the correct select tag
 select_stop = Select(browser.find_element_by_id('stop-select'))
-'''
 # select by visible text
 select_stop.select_by_visible_text('Hutchison & Art Building (E)')
 # select by value (Hutchison and Old Davis (E)
@@ -36,14 +36,30 @@ select_stop.select_by_value('22000')
 
 # printing all stops with predicted arrival times
 print('W LINE STOP PREDICTIONS', '\n')
-for o in select_stop.options:
-    select_stop.select_by_visible_text(o.text) # select stop
-    arrival_times = browser.find_elements_by_xpath("//span[@class='time']")
-    a_t = arrival_times[0].text
-    print(o.text, ": ", a_t, '\n')
+stops = list()
+times = list()
+dir = list()
+select_direction = Select(browser.find_element_by_id('direction-select'))
+for d in select_direction.options[1:]:
+    select_direction.select_by_visible_text(d.text)  # select the direction
+    select_stop = Select(browser.find_element_by_id('stop-select'))  # get local stops for that direction
+    # print('DIRECTION: ', d.text, '\n')
+    for o in select_stop.options:
+        dir.append(d.text)
+        select_stop.select_by_visible_text(o.text)  # select stop
+        stops.append(o.text)
+        arrival_times = browser.find_elements_by_xpath("//span[@class='time']")
+        a_t = arrival_times[0].text
+        times.append(a_t)
+        # print(o.text, ": ", a_t, '\n')
 
+# put data into dataframe
+
+WLine = pd.DataFrame({
+    "Direction": dir,
+    "Stop": stops,
+    "Predictions": times
+})
+
+print(WLine)
 browser.close()
-
-
-
-
