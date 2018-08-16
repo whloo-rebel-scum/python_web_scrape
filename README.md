@@ -13,5 +13,6 @@ Currently testing web scraping on weather data, from:
 - https://weather.com/weather/tenday/l/USCA0284:1:US
 
 TODO: gather data from Unitrans Website using Selenium: https://unitrans.ucdavis.edu/routes/W/prediction
-- COMPLETED: scraping of W-Line, dataframe input
-- NEXT: parse text and prediction times into separate fields
+- COMPLETED: scraping of W-Line, data frame input, parsing with regex
+- NEXT: expand to all lines, store in a list of data frames
+- NEXT: analyze NHL, MLB data from?
