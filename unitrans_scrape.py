@@ -39,8 +39,12 @@ select_stop.select_by_value('22000')
 # printing all stops with predicted arrival times
 lines = list()  # list of data frames of bus routes
 select_route = Select(browser.find_element_by_id('route-select'))
-service_type_list = browser.find_element_by_xpath("//ul[@class='service-types-list']")
-print(service_type_list.get_attribute('innerHTML'))
+prediction_check = browser.find_element_by_xpath("//div[@class='prediction']")
+print(prediction_check.get_attribute('innerHTML'))
+prediction_tags = prediction_check.find_elements_by_css_selector('p')
+# check these two attributes for [0:1]
+print(prediction_tags[0].get_attribute('id'))
+print(prediction_tags[0].get_attribute('style'))
 
 for r in select_route.options:
     select_route.select_by_visible_text(r.text)  # select route
@@ -51,9 +55,8 @@ for r in select_route.options:
     in_out_bound = list()  # list of inbound/outbound labels for each stop
     select_direction = Select(browser.find_element_by_id('direction-select'))
 
-    # TODO: deal with O, T, X line having only weekend service:
-    # if service_type.text == ' Weekday Service' and r.text == ('O' or 'T' or 'X'):
-    #    print("continue")
+    # TODO: deal with O, T, X line having only weekend service: try looking at div class prediction
+
 
     try:
         WebDriverWait(browser, timeout).until(EC.visibility_of_element_located(
