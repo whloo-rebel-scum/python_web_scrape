@@ -1,6 +1,7 @@
 # Web-Scraping on the UC Davis Unitrans website
 
 from selenium import webdriver
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -46,6 +47,7 @@ for r in select_route.options:
     times = list()  # when the next bus is predicted to arrive for each stop
     in_out_bound = list()  # list of inbound/outbound labels for each stop
     select_direction = Select(browser.find_element_by_id('direction-select'))
+
     try:
         WebDriverWait(browser, timeout).until(EC.visibility_of_element_located(
             (By.XPATH, "//span[@class='time']")))
@@ -53,7 +55,15 @@ for r in select_route.options:
         print("Timed out waiting for page to load")
         browser.quit()
 
-    # TODO: deal with F line having only one direction option
+    # TODO: deal with F, P, Q line having only one direction option
+
+    # TODO: deal with O, T, X line having only weekend service:
+    # This try-except-block is currently skipping over all lines
+    try:  # checking if service is running (style should != 'display: none;'
+        browser.find_element(By.XPATH, "//p[@class='prediction-notice' and style]")
+    except NoSuchElementException:
+        print("continue")
+        continue
 
     for d in select_direction.options[1:]:  # skip the very first option for direction
         # TODO: fix "Message: Could not locate element with visible text: Outbound to Wake Forest"
@@ -67,12 +77,13 @@ for r in select_route.options:
             stops.append(stop.group(1))  # regex to remove cardinal directions
             arrival_times = browser.find_elements_by_xpath("//span[@class='time']")
             a_t = arrival_times[0].text
-            next_bus = re.match(r'(.*)(,?)(.*)', a_t)  # TODO regex to shorten to two
+            # next_bus = re.match(r'(.*)(,?)(.*)', a_t)  # TODO regex to shorten to two
             # check if there are no more buses for the day
-            if next_bus.group(1) != "":
-                times.append(next_bus.group(1) + 'm')
-            else:
-                times.append('no buses')
+            # if next_bus.group(1) != "":
+            #    times.append(next_bus.group(1) + 'm')
+            # else:
+            #    times.append('no buses')
+            times.append(a_t + 'm')
 
     # put data into data frame
     Line = pd.DataFrame({
