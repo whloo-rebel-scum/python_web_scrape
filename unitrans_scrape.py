@@ -1,7 +1,7 @@
 # Web-Scraping on the UC Davis Unitrans website
 
 from selenium import webdriver
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException  # to handle in try-except blocks
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -39,6 +39,9 @@ select_stop.select_by_value('22000')
 # printing all stops with predicted arrival times
 lines = list()  # list of data frames of bus routes
 select_route = Select(browser.find_element_by_id('route-select'))
+# service_type_list = browser.find_element_by_xpath("//ul[@class='service-types-list']")
+# service_type = service_type_list.find_element_by_xpath("//li")
+# print("Service type:", service_type.text)
 for r in select_route.options:
     select_route.select_by_visible_text(r.text)  # select route
     print(r.text, 'LINE STOP PREDICTIONS', '\n')
@@ -47,6 +50,10 @@ for r in select_route.options:
     times = list()  # when the next bus is predicted to arrive for each stop
     in_out_bound = list()  # list of inbound/outbound labels for each stop
     select_direction = Select(browser.find_element_by_id('direction-select'))
+
+    # TODO: deal with O, T, X line having only weekend service:
+    # if service_type.text == ' Weekday Service' and r.text == ('O' or 'T' or 'X'):
+    #    print("continue")
 
     try:
         WebDriverWait(browser, timeout).until(EC.visibility_of_element_located(
@@ -57,16 +64,9 @@ for r in select_route.options:
 
     # TODO: deal with F, P, Q line having only one direction option
 
-    # TODO: deal with O, T, X line having only weekend service:
-    # This try-except-block is currently skipping over all lines
-    try:  # checking if service is running (style should != 'display: none;'
-        browser.find_element(By.XPATH, "//p[@class='prediction-notice' and style]")
-    except NoSuchElementException:
-        print("continue")
-        continue
-
     for d in select_direction.options[1:]:  # skip the very first option for direction
         # TODO: fix "Message: Could not locate element with visible text: Outbound to Wake Forest"
+        # TODO: fix "Message: stale element reference: element is not attached to the page document"
         select_direction.select_by_visible_text(d.text)  # select the direction
         select_stop = Select(browser.find_element_by_id('stop-select'))  # get local stops for that direction
         for o in select_stop.options:
