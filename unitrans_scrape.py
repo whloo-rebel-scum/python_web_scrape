@@ -54,11 +54,13 @@ for r in select_route.options:
         browser.quit()
 
     # TODO: deal with F line having only one direction option
+
     for d in select_direction.options[1:]:  # skip the very first option for direction
+        # TODO: fix "Message: Could not locate element with visible text: Outbound to Wake Forest"
         select_direction.select_by_visible_text(d.text)  # select the direction
         select_stop = Select(browser.find_element_by_id('stop-select'))  # get local stops for that direction
         for o in select_stop.options:
-            direction = re.match(r'(.*) to (.*)', d.text)  # regular expressions to shorten to Inbound/Outbound
+            direction = re.match(r'(.*) (to|and) (.*)', d.text)  # regular expressions to shorten to Inbound/Outbound
             in_out_bound.append(direction.group(1))
             select_stop.select_by_visible_text(o.text)  # select stop
             stop = re.match(r'(.*)\((.*)', o.text)
