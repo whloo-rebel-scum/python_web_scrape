@@ -39,7 +39,8 @@ select_stop.select_by_value('22000')
 # printing all stops with predicted arrival times
 lines = list()  # list of data frames of bus routes
 select_route = Select(browser.find_element_by_id('route-select'))
-# service_type_list = browser.find_element_by_xpath("//ul[@class='service-types-list']")
+service_type_list = browser.find_element_by_xpath("//ul[@class='service-types-list']")
+print(service_type_list.get_attribute('innerHTML'))
 # service_type = service_type_list.find_element_by_xpath("//li")
 # print("Service type:", service_type.text)
 for r in select_route.options:
