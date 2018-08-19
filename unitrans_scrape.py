@@ -41,7 +41,7 @@ lines = list()  # list of data frames of bus routes
 select_route = Select(browser.find_element_by_id('route-select'))
 for r in select_route.options:
     select_route.select_by_visible_text(r.text)  # select route
-    print(r.text, 'LINE STOP PREDICTIONS', '\n')
+    print(r.text, 'LINE STOP PREDICTIONS:')
     # the following lists will be put into data frames
     stops = list()  # list of names of bus stops
     times = list()  # when the next bus is predicted to arrive for each stop
@@ -59,10 +59,10 @@ for r in select_route.options:
     prediction_check = browser.find_element_by_xpath("//div[@class='prediction']")
     prediction_tags = prediction_check.find_elements_by_css_selector('p')
     if prediction_tags[1].get_attribute('style') == "display: none;":  # not in service
-        print(r.text)
+        print("ROUTE NOT IN SERVICE")
         continue
 
-    try:
+    try:  # commenting this out seems to produce better results
         WebDriverWait(browser, timeout).until(EC.visibility_of_element_located(
             (By.XPATH, "//span[@class='time']")))
     except TimeoutException:
