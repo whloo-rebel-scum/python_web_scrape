@@ -14,7 +14,7 @@ option = webdriver.ChromeOptions()
 option.add_argument("--incognito")
 browser = webdriver.Chrome(executable_path='C:\\Users\\whloo\\PycharmProjects\\chromedriver.exe',
                            chrome_options=option)
-browser.get("https://unitrans.ucdavis.edu/routes/W/prediction")
+browser.get("https://unitrans.ucdavis.edu/routes/A/prediction")
 timeout = 20
 try:
     # Wait until the final element is loaded.
@@ -49,8 +49,8 @@ for r in select_route.options:
     select_direction = Select(browser.find_element_by_id('direction-select'))
 
     try:  # TODO: figure out correct XPATH
-        WebDriverWait(browser, 10).until(EC.presence_of_element_located(
-            (By.XPATH, '//p[@id="prediction-none][contains(@style, "none")]')))
+        WebDriverWait(browser, 10).until(EC.visibility_of_all_elements_located(
+            (By.XPATH, '//p[@class="prediction-none"]')))
     except TimeoutException:
             print("ROUTE NOT IN SERVICE")
             continue
