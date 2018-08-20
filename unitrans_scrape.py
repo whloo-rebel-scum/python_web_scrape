@@ -14,7 +14,7 @@ option = webdriver.ChromeOptions()
 option.add_argument("--incognito")
 browser = webdriver.Chrome(executable_path='C:\\Users\\whloo\\PycharmProjects\\chromedriver.exe',
                            chrome_options=option)
-browser.get("https://unitrans.ucdavis.edu/routes/A/prediction")
+browser.get("https://unitrans.ucdavis.edu/routes/W/prediction")
 timeout = 20
 try:
     # Wait until the final element is loaded.
@@ -47,36 +47,27 @@ for r in select_route.options:
     times = list()  # when the next bus is predicted to arrive for each stop
     in_out_bound = list()  # list of inbound/outbound labels for each stop
     select_direction = Select(browser.find_element_by_id('direction-select'))
-    '''
+
     try:
-        WebDriverWait(browser, timeout).until(EC.visibility_of_element_located(
-            (By.XPATH, "//div[@class='form-group']")))
+        WebDriverWait(browser, timeout).until(EC.visibility_of_all_elements_located(
+            (By.XPATH, "//div[@class='prediction']")))
     except TimeoutException:
         print("Timed out waiting for page to load")
         browser.quit()
 
-    browser.implicitly_wait(2)  # seems to work correctly sometimes
-
     # TODO: skipping non-service line almost works, why does it a skip a few viable lines?
+    browser.implicitly_wait(5)
     prediction_check = browser.find_element_by_xpath("//div[@class='prediction']")
     prediction_tags = prediction_check.find_elements_by_css_selector('p')
     if prediction_tags[1].get_attribute('style') == "display: none;":  # not in service
         print("ROUTE NOT IN SERVICE")
         continue
 
-    try:  # commenting this out seems to produce better results
-        WebDriverWait(browser, timeout).until(EC.visibility_of_element_located(
-            (By.XPATH, "//span[@class='time']")))
-    except TimeoutException:
-        print("Timed out waiting for page to load")
-        browser.quit()
-    '''
     # TODO: deal with F, P, Q line having only one direction option
 
     for d in select_direction.options[1:]:  # skip the very first option for direction
         # TODO: fix "Message: Could not locate element with visible text: Outbound to Wake Forest"
         # TODO: fix "Message: stale element reference: element is not attached to the page document"
-        print(d.text)
         select_direction.select_by_visible_text(d.text)  # select the direction
         select_stop = Select(browser.find_element_by_id('stop-select'))  # get local stops for that direction
         for o in select_stop.options:
