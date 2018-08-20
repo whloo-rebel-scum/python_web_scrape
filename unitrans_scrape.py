@@ -48,15 +48,15 @@ for r in select_route.options:
     in_out_bound = list()  # list of inbound/outbound labels for each stop
     select_direction = Select(browser.find_element_by_id('direction-select'))
 
-    try:
-        WebDriverWait(browser, timeout).until(EC.visibility_of_all_elements_located(
-            (By.XPATH, "//div[@class='prediction']")))
+    try:  # TODO: figure out correct XPATH
+        WebDriverWait(browser, 3).until(EC.visibility_of_all_elements_located(
+            (By.XPATH, "//p[@class='prediction-none'][contains(style, 'none')]")))
     except TimeoutException:
-        print("Timed out waiting for page to load")
-        browser.quit()
+            print("ROUTE NOT IN SERVICE")
+            continue
 
     # TODO: skipping non-service line almost works, why does it a skip a few viable lines?
-    browser.implicitly_wait(5)
+    # browser.implicitly_wait(5)
     prediction_check = browser.find_element_by_xpath("//div[@class='prediction']")
     prediction_tags = prediction_check.find_elements_by_css_selector('p')
     if prediction_tags[1].get_attribute('style') == "display: none;":  # not in service
