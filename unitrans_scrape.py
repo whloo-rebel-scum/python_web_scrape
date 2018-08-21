@@ -1,7 +1,8 @@
 # Web-Scraping on the UC Davis Unitrans website
 
 from selenium import webdriver
-from selenium.common.exceptions import NoSuchElementException  # to handle in try-except blocks
+from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import StaleElementReferenceException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -10,6 +11,10 @@ from selenium.webdriver.support.ui import Select  # for controlling drop-down bo
 import pandas as pd
 import re
 
+# vars for later usage
+IE = (NoSuchElementException, StaleElementReferenceException)
+
+# load browser
 option = webdriver.ChromeOptions()
 option.add_argument("--incognito")
 browser = webdriver.Chrome(executable_path='C:\\Users\\whloo\\PycharmProjects\\chromedriver.exe',
@@ -38,37 +43,37 @@ select_stop.select_by_value('22000')
 
 # printing all stops with predicted arrival times
 lines = list()  # list of data frames of bus routes
+# the following lists will be put into data frames
+stops = list()  # list of names of bus stops
+times = list()  # when the next bus is predicted to arrive for each stop
+in_out_bound = list()  # list of inbound/outbound labels for each stop
+
 select_route = Select(browser.find_element_by_id('route-select'))
 for r in select_route.options:
     select_route.select_by_visible_text(r.text)  # select route
     print(r.text, 'LINE STOP PREDICTIONS:')
-    # the following lists will be put into data frames
-    stops = list()  # list of names of bus stops
-    times = list()  # when the next bus is predicted to arrive for each stop
-    in_out_bound = list()  # list of inbound/outbound labels for each stop
+    browser.implicitly_wait(10)
     select_direction = Select(browser.find_element_by_id('direction-select'))
-
+    '''
     try:  # TODO: figure out correct XPATH
         WebDriverWait(browser, 10).until(EC.visibility_of_all_elements_located(
-            (By.XPATH, '//p[@class="prediction-none"]')))
+            (By.XPATH, '//div[@class="prediction"]')))
     except TimeoutException:
             print("ROUTE NOT IN SERVICE")
             continue
-
-    # TODO: skipping non-service line almost works, why does it a skip a few viable lines?
     '''
+    # TODO: skipping non-service line almost works, why does it a skip a few viable lines?
     prediction_check = browser.find_element_by_xpath("//div[@class='prediction']")
     prediction_tags = prediction_check.find_elements_by_css_selector('p')
     if prediction_tags[1].get_attribute('style') == "display: none;":  # not in service
         print("ROUTE NOT IN SERVICE")
         continue
-    '''
 
     # TODO: deal with F, P, Q line having only one direction option
-
     for d in select_direction.options[1:]:  # skip the very first option for direction
-        # TODO: fix "Message: Could not locate element with visible text: Outbound to Wake Forest"
+        # TODO: fix "Message: Could not locate element with visible text: Outbound [previous route]"
         # TODO: fix "Message: stale element reference: element is not attached to the page document"
+        print(d.text)  # TODO: problem with old direction being selected when there is a new route
         select_direction.select_by_visible_text(d.text)  # select the direction
         select_stop = Select(browser.find_element_by_id('stop-select'))  # get local stops for that direction
         for o in select_stop.options:
@@ -96,6 +101,11 @@ for r in select_route.options:
 
     print(Line)
     lines.append(Line)
+
+    # clear lists
+    in_out_bound.clear()
+    stops.clear()
+    times.clear()
     # end loop
 
 browser.close()
