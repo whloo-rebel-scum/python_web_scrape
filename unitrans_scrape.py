@@ -14,6 +14,15 @@ import re
 # vars for later usage
 IE = (NoSuchElementException, StaleElementReferenceException)
 
+
+def select_direction_wait(driver):
+    element = Select(driver.find_element_by_id('direction-select'))
+    if element:
+        return element
+    else:
+        return False
+
+
 # load browser
 option = webdriver.ChromeOptions()
 option.add_argument("--incognito")
@@ -52,8 +61,8 @@ select_route = Select(browser.find_element_by_id('route-select'))
 for r in select_route.options:
     select_route.select_by_visible_text(r.text)  # select route
     print(r.text, 'LINE STOP PREDICTIONS:')
-    browser.implicitly_wait(10)
-    select_direction = Select(browser.find_element_by_id('direction-select'))
+    select_direction = WebDriverWait(browser, 10).until(select_direction_wait)
+    # select_direction = Select(browser.find_element_by_id('direction-select'))  # TODO: related to direction problem
     '''
     try:  # TODO: figure out correct XPATH
         WebDriverWait(browser, 10).until(EC.visibility_of_all_elements_located(
