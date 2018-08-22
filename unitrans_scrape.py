@@ -47,22 +47,38 @@ lines = list()  # list of data frames of bus routes
 stops = list()  # list of names of bus stops
 times = list()  # when the next bus is predicted to arrive for each stop
 in_out_bound = list()  # list of inbound/outbound labels for each stop
-
 select_route = Select(browser.find_element_by_id('route-select'))
-for r in select_route.options:
-    select_route.select_by_visible_text(r.text)  # select route
-    print(r.text, 'LINE STOP PREDICTIONS:')
+routes = list()
+for r in select_route.options:  # store a list of routes
+    routes.append(r.text)
 
+for r in routes:  # for r in select_route.options:
+    # TODO: new method works, but not when bandwidth under heavy load
+    # if reverting, change r back to r.text
+    route_url = "https://unitrans.ucdavis.edu/routes/" + r + "/prediction"
+    browser.get(route_url)
+
+    try:
+        # Wait until the final element is loaded.
+        WebDriverWait(browser, timeout).until(EC.visibility_of_element_located(
+            (By.XPATH, "//select[@id='stop-select']")))
+    except TimeoutException:
+        print("Timed out waiting for page to load")
+        browser.quit()
+
+    # select_route.select_by_visible_text(r.text)  # select route
+    print(r, 'LINE STOP PREDICTIONS:')
+    '''
     try:  # wait until direction selection drop-down fully loaded
         WebDriverWait(browser, 10).until(EC.visibility_of_all_elements_located(
             (By.XPATH, "//div[@class='form-group']")))
     except TimeoutException:
         print("loading direction selection timed out")
+    '''
+    select_direction = Select(browser.find_element_by_id('direction-select'))
 
-    select_direction = Select(browser.find_element_by_id('direction-select'))  # TODO: related to direction problem
-
-    # wait until prediction class fully loaded
-    try:  # TODO: figure out correct XPATH
+    # wait until prediction class fully loaded (needed for next code block)
+    try:
         WebDriverWait(browser, 10).until(EC.visibility_of_all_elements_located(
             (By.XPATH, "//div[@class='prediction']")))
     except TimeoutException:
@@ -80,17 +96,10 @@ for r in select_route.options:
     for d in select_direction.options[1:]:  # skip the very first option for direction
         # TODO: fix "Message: Could not locate element with visible text: Outbound [previous route]"
         # TODO: fix "Message: stale element reference: element is not attached to the page document"
-        print(d.text)
-        while True:
-            try:
-                select_direction.select_by_visible_text(d.text)  # select the direction
-                break
-            except StaleElementReferenceException:
-                print("StateElementReferenceException, trying again")
-
+        select_direction.select_by_visible_text(d.text)  # select the direction
         select_stop = Select(browser.find_element_by_id('stop-select'))  # get local stops for that direction
         for o in select_stop.options:
-            direction = re.match(r'(.*) (to|and) (.*)', d.text)  # regular expressions to shorten to Inbound/Outbound
+            direction = re.match(r'(.*) (to|and) (.*)', d.text)  # regex to shorten to Inbound/Outbound
             in_out_bound.append(direction.group(1))
             select_stop.select_by_visible_text(o.text)  # select stop
             stop = re.match(r'(.*)\((.*)', o.text)
