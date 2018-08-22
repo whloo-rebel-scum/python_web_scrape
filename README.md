@@ -1,6 +1,5 @@
 # Python Web Scraping
-Following a tutorial: https://www.dataquest.io/blog/web-scraping-tutorial-python/
-
+Basic tutorial: https://www.dataquest.io/blog/web-scraping-tutorial-python/
 Selenium tutorial: https://medium.com/the-andela-way/introduction-to-web-scraping-using-selenium-7ec377a8cf72
 
 Utilizes:
@@ -14,5 +13,9 @@ Currently testing web scraping on weather data, from:
 
 TODO: gather data from Unitrans Website using Selenium: https://unitrans.ucdavis.edu/routes/W/prediction
 - COMPLETED: scraping of W-Line, data frame input, parsing with regex
-- NEXT: expand to all lines, store in a list of data frames
-- NEXT: analyze NHL, MLB data from?
+- In-progress: expand to all lines, store in a list of data frames
+    - ISSUES: 
+        - load problems/race conditions when bandwidth limited
+        - ideally want load all data without switching pages
+        - handling of **single direction** lines
+- NEXT: analyze NHL, MLB data 
