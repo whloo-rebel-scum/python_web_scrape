@@ -53,7 +53,6 @@ for r in select_route.options:  # store a list of routes
     routes.append(r.text)
 
 for r in routes:  # for r in select_route.options:
-    # TODO: new method works, but not when bandwidth under heavy load
     # if reverting, change r back to r.text
     route_url = "https://unitrans.ucdavis.edu/routes/" + r + "/prediction"
     browser.get(route_url)
@@ -68,29 +67,19 @@ for r in routes:  # for r in select_route.options:
 
     # select_route.select_by_visible_text(r.text)  # select route
     print(r, 'LINE STOP PREDICTIONS:')
-    '''
-    try:  # wait until direction selection drop-down fully loaded
-        WebDriverWait(browser, 10).until(EC.visibility_of_all_elements_located(
-            (By.XPATH, "//div[@class='form-group']")))
-    except TimeoutException:
-        print("loading direction selection timed out")
-    '''
     select_direction = Select(browser.find_element_by_id('direction-select'))
 
-    # wait until prediction class fully loaded (needed for next code block)
+    # wait until prediction times fully loaded
     try:
-        WebDriverWait(browser, 10).until(EC.visibility_of_all_elements_located(
-            (By.XPATH, "//div[@class='prediction']")))
+        WebDriverWait(browser, 5).until(EC.visibility_of_all_elements_located(
+            (By.XPATH, "//span[@class='time']")))
     except TimeoutException:
-        print("loading //div[@class='prediction' timed out")
-        browser.quit()
-
-    # TODO: skipping non-service line almost works, why does it a skip a few viable lines?
-    prediction_check = browser.find_element_by_xpath("//div[@class='prediction']")
-    prediction_tags = prediction_check.find_elements_by_css_selector('p')
-    if prediction_tags[1].get_attribute('style') == "display: none;":  # not in service
-        print("ROUTE NOT IN SERVICE")
-        continue
+        print("loading //span[@class='time'] timed out")
+        prediction_check = browser.find_element_by_xpath("//div[@class='prediction']")
+        prediction_tags = prediction_check.find_elements_by_css_selector('p')
+        if prediction_tags[1].get_attribute('style') == "display: none;":  # not in service
+            print("ROUTE NOT IN SERVICE")
+            continue
 
     # TODO: deal with F, P, Q line having only one direction option
     for d in select_direction.options[1:]:  # skip the very first option for direction
