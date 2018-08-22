@@ -14,15 +14,6 @@ import re
 # vars for later usage
 IE = (NoSuchElementException, StaleElementReferenceException)
 
-
-def select_direction_wait(driver):
-    element = Select(driver.find_element_by_id('direction-select'))
-    if element:
-        return element
-    else:
-        return False
-
-
 # load browser
 option = webdriver.ChromeOptions()
 option.add_argument("--incognito")
@@ -61,16 +52,23 @@ select_route = Select(browser.find_element_by_id('route-select'))
 for r in select_route.options:
     select_route.select_by_visible_text(r.text)  # select route
     print(r.text, 'LINE STOP PREDICTIONS:')
-    select_direction = WebDriverWait(browser, 10).until(select_direction_wait)
-    # select_direction = Select(browser.find_element_by_id('direction-select'))  # TODO: related to direction problem
-    '''
+
+    try:  # wait until direction selection drop-down fully loaded
+        WebDriverWait(browser, 10).until(EC.visibility_of_all_elements_located(
+            (By.XPATH, "//div[@class='form-group']")))
+    except TimeoutException:
+        print("loading direction selection timed out")
+
+    select_direction = Select(browser.find_element_by_id('direction-select'))  # TODO: related to direction problem
+
+    # wait until prediction class fully loaded
     try:  # TODO: figure out correct XPATH
         WebDriverWait(browser, 10).until(EC.visibility_of_all_elements_located(
-            (By.XPATH, '//div[@class="prediction"]')))
+            (By.XPATH, "//div[@class='prediction']")))
     except TimeoutException:
-            print("ROUTE NOT IN SERVICE")
-            continue
-    '''
+        print("loading //div[@class='prediction' timed out")
+        browser.quit()
+
     # TODO: skipping non-service line almost works, why does it a skip a few viable lines?
     prediction_check = browser.find_element_by_xpath("//div[@class='prediction']")
     prediction_tags = prediction_check.find_elements_by_css_selector('p')
@@ -82,8 +80,14 @@ for r in select_route.options:
     for d in select_direction.options[1:]:  # skip the very first option for direction
         # TODO: fix "Message: Could not locate element with visible text: Outbound [previous route]"
         # TODO: fix "Message: stale element reference: element is not attached to the page document"
-        print(d.text)  # TODO: problem with old direction being selected when there is a new route
-        select_direction.select_by_visible_text(d.text)  # select the direction
+        print(d.text)
+        while True:
+            try:
+                select_direction.select_by_visible_text(d.text)  # select the direction
+                break
+            except StaleElementReferenceException:
+                print("StateElementReferenceException, trying again")
+
         select_stop = Select(browser.find_element_by_id('stop-select'))  # get local stops for that direction
         for o in select_stop.options:
             direction = re.match(r'(.*) (to|and) (.*)', d.text)  # regular expressions to shorten to Inbound/Outbound
