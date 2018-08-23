@@ -10,9 +10,9 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import Select  # for controlling drop-down boxes
 import pandas as pd
 import re
+import time
 
-# vars for later usage
-IE = (NoSuchElementException, StaleElementReferenceException)
+start_time = time.clock()
 
 # load browser
 option = webdriver.ChromeOptions()
@@ -82,9 +82,8 @@ for r in routes:  # for r in select_route.options:
             continue
 
     # TODO: deal with F, P, Q line having only one direction option
+    print("number of directions: ", len(select_direction.options))
     for d in select_direction.options[1:]:  # skip the very first option for direction
-        # TODO: fix "Message: Could not locate element with visible text: Outbound [previous route]"
-        # TODO: fix "Message: stale element reference: element is not attached to the page document"
         select_direction.select_by_visible_text(d.text)  # select the direction
         select_stop = Select(browser.find_element_by_id('stop-select'))  # get local stops for that direction
         for o in select_stop.options:
@@ -110,7 +109,7 @@ for r in routes:  # for r in select_route.options:
         "Next Bus": times
     })
 
-    print(Line)
+    print(Line, '\n')
     lines.append(Line)
 
     # clear lists
@@ -120,3 +119,4 @@ for r in routes:  # for r in select_route.options:
     # end loop
 
 browser.close()
+print("Scraping finished in --- %s seconds ---" % round(time.clock() - start_time, 2))
