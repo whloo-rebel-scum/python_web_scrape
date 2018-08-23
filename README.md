@@ -14,8 +14,5 @@ Currently testing web scraping on weather data, from:
 TODO: gather data from Unitrans Website using Selenium: https://unitrans.ucdavis.edu/routes/W/prediction
 - COMPLETED: scraping of W-Line, data frame input, parsing with regex
 - In-progress: expand to all lines, store in a list of data frames
-    - ISSUES: 
-        - load problems/race conditions when bandwidth limited
-        - ideally want load all data without switching pages
-        - handling of **single direction** lines
-- NEXT: analyze NHL, MLB data 
+    - TODO: print data frames to file
+- NEXT: scrape sports game scores
