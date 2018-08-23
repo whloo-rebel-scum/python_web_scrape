@@ -82,9 +82,8 @@ for r in routes:  # for r in select_route.options:
             continue
 
     # fill lists
-    # TODO: deal with having only one direction option
     # use if-else statement for now, but is there a more concise method?
-    print("number of directions: ", len(select_direction.options))
+    # print("number of directions: ", len(select_direction.options))
     if len(select_direction.options) > 1:
         for d in select_direction.options[1:]:  # skip the very first direction option
             select_direction.select_by_visible_text(d.text)  # select the direction
@@ -96,30 +95,33 @@ for r in routes:  # for r in select_route.options:
                 stop = re.match(r'(.*)\((.*)', o.text)
                 stops.append(stop.group(1))  # regex to remove cardinal directions
                 arrival_times = browser.find_elements_by_xpath("//span[@class='time']")
-                a_t = arrival_times[0].text
-                next_bus = re.match(r'(.*)(,*)(.*)(,*)(.*)', a_t)  # TODO regex to shorten # of times listed
-                # check if there are no more buses for the day
-                if next_bus.group(1) != "":
-                    times.append(next_bus.group(1) + 'm')
-                else:
-                    times.append('no buses')
-                if next_bus.group(2) != "":
-                    times.append(", " + next_bus.group(2) + 'm')
-                # times.append(a_t + 'm')
+                a_t = arrival_times[0].text.split(', ')  # split by delimiter ', '
+                t_str = a_t[0]
+                if len(a_t) > 1:
+                    t_str += ", " + a_t[1]  # have up to two bus predictions per stop
+                t_str += 'm'
+                times.append(t_str)
     else:  # one direction select
         select_direction.select_by_visible_text(select_direction.options[0].text)  # select the direction
         select_stop = Select(browser.find_element_by_id('stop-select'))  # get local stops for that direction
         for o in select_stop.options:
             direction = re.match(r'(.*) (to|and) (.*)',
-                                 select_direction.options[0].text)  # TODO: fix regex for 'both' and 'clockwise/counter'
-            in_out_bound.append(direction.group(1))
+                                 select_direction.options[0].text)
+            # handle cases of inbound/outbound and clockwise/counterclockwise
+            if "Both" in direction.group(1):
+                in_out_bound.append("Inbound/Outbound")
+            else:
+                in_out_bound.append(direction.group(1))
             select_stop.select_by_visible_text(o.text)  # select stop
             stop = re.match(r'(.*)\((.*)', o.text)
             stops.append(stop.group(1))  # regex to remove cardinal directions
             arrival_times = browser.find_elements_by_xpath("//span[@class='time']")
-            a_t = arrival_times[0].text
-            # TODO: regex same as above if statement
-            times.append(a_t + 'm')
+            a_t = arrival_times[0].text.split(', ')
+            t_str = a_t[0]
+            if len(a_t) > 1:
+                t_str += ", " + a_t[1]
+            t_str += 'm'
+            times.append(t_str)
 
     # put data into data frame
     Line = pd.DataFrame({
