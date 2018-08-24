@@ -131,7 +131,9 @@ for r in routes:  # for r in select_route.options:
     })
 
     print(Line, '\n')
-    lines.append(Line)
+    file_name = "bus_line_data/" + r + "_line.csv"
+    Line.to_csv(file_name, encoding='utf-8', index=False)
+    lines.append(Line)  # TODO: use lines var
 
     # clear lists
     in_out_bound.clear()

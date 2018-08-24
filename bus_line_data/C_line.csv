@@ -1,0 +1,12 @@
+Direction,Stop,Next Bus
+Outbound,Silo & Center Island ,"5, 65m"
+Outbound,La Rue & Orchard ,"5, 65m"
+Outbound,Anderson & Russell ,"8, 68m"
+Outbound,Anderson & Sunset ,"9, 69m"
+Inbound,8th & Sycamore ,"9, 69m"
+Inbound,Wake Forest & 8th Street ,"11, 71m"
+Inbound,Wake Forest & Oxford ,"13, 73m"
+Inbound,Sycamore & Wake Forest ,"13, 73m"
+Inbound,La Rue & Orchard ,"15, 75m"
+Inbound,Hutchison & Bioletti ,"17, 77m"
+Inbound,Silo & Center Island ,"19, 79m"
