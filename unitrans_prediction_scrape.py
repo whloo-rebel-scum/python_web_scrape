@@ -52,25 +52,21 @@ routes = list()
 for r in select_route.options:  # store a list of routes
     routes.append(r.text)
 
-for r in routes:  # for r in select_route.options:
-    # if reverting, change r back to r.text
+for r in routes:
     route_url = "https://unitrans.ucdavis.edu/routes/" + r + "/prediction"
     browser.get(route_url)
 
-    try:
-        # Wait until the final element is loaded.
+    try:  # Wait until the final element is loaded.
         WebDriverWait(browser, timeout).until(EC.visibility_of_element_located(
             (By.XPATH, "//select[@id='stop-select']")))
     except TimeoutException:
         print("Timed out waiting for page to load")
         browser.quit()
 
-    # select_route.select_by_visible_text(r.text)  # select route
     print(r, 'LINE STOP PREDICTIONS:')
     select_direction = Select(browser.find_element_by_id('direction-select'))
 
-    # wait until prediction times fully loaded
-    try:
+    try:  # wait until prediction times fully loaded
         WebDriverWait(browser, 5).until(EC.visibility_of_all_elements_located(
             (By.XPATH, "//span[@class='time']")))
     except TimeoutException:
@@ -82,14 +78,12 @@ for r in routes:  # for r in select_route.options:
             continue
 
     # fill lists
-    # use if-else statement for now, but is there a more concise method?
-    # print("number of directions: ", len(select_direction.options))
     if len(select_direction.options) > 1:
         for d in select_direction.options[1:]:  # skip the very first direction option
             select_direction.select_by_visible_text(d.text)  # select the direction
             select_stop = Select(browser.find_element_by_id('stop-select'))  # get local stops for that direction
             for o in select_stop.options:
-                direction = re.match(r'(.*) (to|and) (.*)', d.text)  # regex to shorten to Inbound/Outbound
+                direction = re.match(r'(.*) (to|and) (.*)', d.text)  # regex to shorten to Inbound or Outbound
                 in_out_bound.append(direction.group(1))
                 select_stop.select_by_visible_text(o.text)  # select stop
                 stop = re.match(r'(.*)\((.*)', o.text)
@@ -102,8 +96,8 @@ for r in routes:  # for r in select_route.options:
                 t_str += 'm'
                 times.append(t_str)
     else:  # one direction select
-        select_direction.select_by_visible_text(select_direction.options[0].text)  # select the direction
-        select_stop = Select(browser.find_element_by_id('stop-select'))  # get local stops for that direction
+        select_direction.select_by_visible_text(select_direction.options[0].text)
+        select_stop = Select(browser.find_element_by_id('stop-select'))
         for o in select_stop.options:
             direction = re.match(r'(.*) (to|and) (.*)',
                                  select_direction.options[0].text)
@@ -112,9 +106,9 @@ for r in routes:  # for r in select_route.options:
                 in_out_bound.append("Inbound/Outbound")
             else:
                 in_out_bound.append(direction.group(1))
-            select_stop.select_by_visible_text(o.text)  # select stop
+            select_stop.select_by_visible_text(o.text)
             stop = re.match(r'(.*)\((.*)', o.text)
-            stops.append(stop.group(1))  # regex to remove cardinal directions
+            stops.append(stop.group(1))
             arrival_times = browser.find_elements_by_xpath("//span[@class='time']")
             a_t = arrival_times[0].text.split(', ')
             t_str = a_t[0]
@@ -133,7 +127,7 @@ for r in routes:  # for r in select_route.options:
     print(Line, '\n')
     file_name = "bus_line_data/" + r + "_line.csv"
     Line.to_csv(file_name, encoding='utf-8', index=False)
-    lines.append(Line)  # TODO: use lines var
+    lines.append(Line)  # TODO: use lines var?
 
     # clear lists
     in_out_bound.clear()
