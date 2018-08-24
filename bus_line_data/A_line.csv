@@ -1,46 +1,46 @@
 Direction,Stop,Next Bus
-Outbound,Silo & Haring Hall ,"36, 96m"
-Outbound,Hutchison & Art Building ,"36, 96m"
-Outbound,Hutchison & Old Davis Road ,"36, 96m"
-Outbound,2nd & B ,"36, 96m"
-Outbound,2nd & E ,"36, 96m"
-Outbound,H & Amtrak Station ,"36, 96m"
-Outbound,3rd & K ,"36, 96m"
-Outbound,L & 4th ,"36, 96m"
-Outbound,5th & Pole Line ,45m
-Outbound,5th & Post Office / Pole Line ,46m
-Outbound,5th & Cantrill  ,47m
-Outbound,5th & Cantrill  ,47m
-Outbound,5th & Pena ,50m
-Outbound,5th & Spafford ,50m
-Outbound,5th & Windmere Apts. ,51m
-Outbound,5th Street & Verona Terrace ,51m
-Outbound,Alhambra & 5th ,52m
-Outbound,Alhambra & Arroyo ,52m
-Outbound,Alhambra & Mace ,53m
-Outbound,Mace & 2nd ,55m
-Outbound,Chiles & Mace ,55m
-Inbound,El Cemonte & Glide ,58m
-Inbound,Cowell & El Cemonte ,"0, 59m"
-Inbound,Cowell & Mace ,"0, 60m"
-Inbound,Mace & Cowell ,"0, 60m"
-Inbound,Mace & 2nd ,"2, 61m"
-Inbound,Alhambra & Mace ,"1, 60m"
-Inbound,Alhambra & Atlantis / Arroyo ,"5, 64m"
-Inbound,Alhambra & Atlantis / Carcia ,"5, 65m"
-Inbound,5th & Verona Terrace ,"6, 65m"
-Inbound,5th & Pelz Bike Path ,"7, 66m"
-Inbound,5th & Spafford ,"8, 67m"
-Inbound,5th & San Rafael ,"8, 67m"
-Inbound,5th & Cantrill ,"9, 68m"
-Inbound,5th & Post Office / Pole Line ,"10, 69m"
-Inbound,5th & Pole Line ,"10, 70m"
-Inbound,5th & Davis PW Corp Yard ,"12, 71m"
-Inbound,L & 425 ,"12, 71m"
-Inbound,3rd & K ,"14, 73m"
-Inbound,H Alley & 2nd ,"15, 74m"
-Inbound,2nd & E ,"16, 76m"
-Inbound,C & 1st ,"17, 77m"
-Inbound,Hutchison Drive & Old Davis Road ,"19, 78m"
-Inbound,Hutchison & Shields ,"20, 80m"
-Inbound,Silo & Haring Hall ,"21, 81m"
+Outbound,Silo & Haring Hall ,"12, 72m"
+Outbound,Hutchison & Art Building ,"12, 72m"
+Outbound,Hutchison & Old Davis Road ,"12, 72m"
+Outbound,2nd & B ,"14, 74m"
+Outbound,2nd & E ,"15, 75m"
+Outbound,H & Amtrak Station ,"17, 77m"
+Outbound,3rd & K ,"19, 79m"
+Outbound,L & 4th ,"19, 79m"
+Outbound,5th & Pole Line ,"22, 82m"
+Outbound,5th & Post Office / Pole Line ,"22, 82m"
+Outbound,5th & Cantrill  ,"24, 84m"
+Outbound,5th & Cantrill  ,"24, 84m"
+Outbound,5th & Pena ,"26, 86m"
+Outbound,5th & Spafford ,"26, 86m"
+Outbound,5th & Windmere Apts. ,"27, 87m"
+Outbound,5th Street & Verona Terrace ,"27, 87m"
+Outbound,Alhambra & 5th ,"27, 87m"
+Outbound,Alhambra & Arroyo ,"29, 89m"
+Outbound,Alhambra & Mace ,"29, 89m"
+Outbound,Mace & 2nd ,"30, 90m"
+Outbound,Chiles & Mace ,"31, 91m"
+Inbound,El Cemonte & Glide ,"35, 95m"
+Inbound,Cowell & El Cemonte ,"36, 96m"
+Inbound,Cowell & Mace ,"36, 96m"
+Inbound,Mace & Cowell ,"37, 97m"
+Inbound,Mace & 2nd ,"37, 97m"
+Inbound,Alhambra & Mace ,"38, 98m"
+Inbound,Alhambra & Atlantis / Arroyo ,40m
+Inbound,Alhambra & Atlantis / Carcia ,40m
+Inbound,5th & Verona Terrace ,42m
+Inbound,5th & Pelz Bike Path ,42m
+Inbound,5th & Spafford ,43m
+Inbound,5th & San Rafael ,43m
+Inbound,5th & Cantrill ,44m
+Inbound,5th & Post Office / Pole Line ,45m
+Inbound,5th & Pole Line ,45m
+Inbound,5th & Davis PW Corp Yard ,47m
+Inbound,L & 425 ,48m
+Inbound,3rd & K ,48m
+Inbound,H Alley & 2nd ,46m
+Inbound,2nd & E ,52m
+Inbound,C & 1st ,52m
+Inbound,Hutchison Drive & Old Davis Road ,53m
+Inbound,Hutchison & Shields ,55m
+Inbound,Silo & Haring Hall ,57m

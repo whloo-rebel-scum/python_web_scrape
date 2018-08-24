@@ -1,4 +1,4 @@
-# Web-Scraping on the UC Davis Unitrans website
+# Web-Scraping Prediction times on the UC Davis Unitrans website
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -46,7 +46,7 @@ stops = list()  # list of names of bus stops
 times = list()  # when the next bus is predicted to arrive for each stop
 in_out_bound = list()  # list of inbound/outbound labels for each stop
 select_route = Select(browser.find_element_by_id('route-select'))
-routes = list()
+routes = list()  # list of bus route letter names
 for r in select_route.options:  # store a list of routes
     routes.append(r.text)
 
