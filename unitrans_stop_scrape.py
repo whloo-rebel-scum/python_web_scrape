@@ -8,7 +8,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import Select  # for controlling drop-down boxes
 import pandas as pd
-import re
 import time
 
 start_time = time.clock()
@@ -53,7 +52,7 @@ for r in route_letters:
         WebDriverWait(browser, 5).until(EC.visibility_of_all_elements_located(
             (By.XPATH, "//span[@class='time']")))
     except TimeoutException:
-        print("loading //span[@class='time'] timed out")
+        print(r, "Line timed out")
         prediction_check = browser.find_element_by_xpath("//div[@class='prediction']")
         prediction_tags = prediction_check.find_elements_by_css_selector('p')
         if prediction_tags[1].get_attribute('style') == "display: none;":
