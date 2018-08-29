@@ -40,6 +40,7 @@ for r in select_route.options:  # store a list of routes
 for r in route_letters:
     route_url = "https://unitrans.ucdavis.edu/routes/" + r + "/prediction"
     browser.get(route_url)
+    print("Scraping Line ", r)
 
     try:  # Wait until the final element is loaded.
         WebDriverWait(browser, timeout).until(EC.visibility_of_element_located(
