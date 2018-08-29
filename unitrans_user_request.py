@@ -13,10 +13,11 @@ import time
 
 # read in csv file to var
 lines = pd.read_csv('bus_stop_options.csv')
-# print list of available lines, ask user to pick one (or quit (or show prediction times of saved stops)
+# print list of available lines, ask user to pick one
+# TODO: implement options like quitting, or getting saved stops
 unique_lines = lines['Route'].unique()
 print("Running lines: ", unique_lines)  # isolate first col (Route)
-while True:  # TODO: implement options (quitting, etc)
+while True:
     route_choice = input("Choose a bus line: ")
     if route_choice in unique_lines:
         break
@@ -63,9 +64,9 @@ print("The next bus(es) will arrive in:", arrival_times[0].text, "min")
 browser.close()
 print("Retrieved prediction in --- %s seconds ---" % round(time.clock() - start_time, 2))
 
-# ask if user would like to save the stop (Y/N)
+# TODO: ask if user would like to save the stop (Y/N)
 # if yes, save to another csv file titled 'saved_stops' (write to existing one, create new one if none)
 
-# loop until user chooses to end the program
+# TODO: loop until user chooses to end the program
 
 
