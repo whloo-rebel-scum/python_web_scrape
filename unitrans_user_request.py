@@ -10,11 +10,21 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.ui import Select  # for controlling drop-down boxes
 import pandas as pd
 import time
+from pathlib import Path
+from saved_stop_functions import create_saved_stops
+from saved_stop_functions import load_saved_stops
+
+# TODO: implement getting saved stops
+# create a new saved_stops file if none exists
+saved_stops_file = Path('saved_stops.csv')
+if not saved_stops_file.is_file():
+    create_saved_stops()
+saved_stops = load_saved_stops()  # data frame with all saved stops
 
 # print list of available lines, ask user to pick one
 lines = pd.read_csv('bus_stop_options.csv')  # read in csv file to var
-# TODO: implement options like quitting, or getting saved stops
 print("***NOTE: enter 'q' at any input to exit the program***")
+print("***enter 's' at line selection to show saved stops***")
 unique_lines = lines['Route'].unique()
 print("Running lines: ", unique_lines)  # isolate first col (Route)
 while True:
@@ -24,6 +34,9 @@ while True:
     elif route_choice == 'q':  # quit program
         print("Good-bye!")
         exit()
+    elif route_choice == 's':  # saved stop options
+        print("Saved stops: ")
+        print(saved_stops)
     else:
         print("Invalid route.")
 print("Line ", route_choice, " chosen")
