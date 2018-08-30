@@ -9,12 +9,20 @@ def create_saved_stops():
         "Route": routes,
         "Stop": stops
     })
-    saved_stops.to_csv("bus_stop_options.csv", encoding='utf-8', index=False)
+    saved_stops.to_csv("saved_stops.csv", encoding='utf-8', index=False)
 
 
 # returns data frame read in from saved_stops.csv
+# dependent on create_saved_stops
 def load_saved_stops():
-    return pd.read_csv('saved_stops.csv')
+    # use while loop instead to reduce number of lines?
+    try:
+        saved_stops = pd.read_csv('saved_stops.csv')
+        return saved_stops
+    except FileNotFoundError:
+        create_saved_stops()
+        saved_stops = pd.read_csv('saved_stops.csv')
+        return saved_stops
 
 
 # add an entry to saved_stops.csv
