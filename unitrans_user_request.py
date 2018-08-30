@@ -11,26 +11,33 @@ from selenium.webdriver.support.ui import Select  # for controlling drop-down bo
 import pandas as pd
 import time
 
-# read in csv file to var
-lines = pd.read_csv('bus_stop_options.csv')
 # print list of available lines, ask user to pick one
+lines = pd.read_csv('bus_stop_options.csv')  # read in csv file to var
 # TODO: implement options like quitting, or getting saved stops
+print("***NOTE: enter 'q' at any input to exit the program***")
 unique_lines = lines['Route'].unique()
 print("Running lines: ", unique_lines)  # isolate first col (Route)
 while True:
     route_choice = input("Choose a bus line: ")
     if route_choice in unique_lines:
         break
+    elif route_choice == 'q':  # quit program
+        print("Good-bye!")
+        exit()
     else:
         print("Invalid route.")
 print("Line ", route_choice, " chosen")
 print("Stops for Line ", route_choice)  # print list of relevant stops
 stops = (lines[lines.Route == route_choice])['Stop']
 print(stops)
+# TODO: how to suppress 'Name: Stop, dtype: object' printing
 
 while True:  # loop until successful stop selection
     stop_choice_string = "Choose a stop for the " + route_choice + " Line (enter index): "
     stop_choice = input(stop_choice_string)  # choice should be a number (index)
+    if stop_choice == 'q':  # quit program
+        print("Good-bye!")
+        exit()
     # retrieve prediction time; load browser
     start_time = time.clock()
     option = webdriver.ChromeOptions()
@@ -67,6 +74,6 @@ print("Retrieved prediction in --- %s seconds ---" % round(time.clock() - start_
 # TODO: ask if user would like to save the stop (Y/N)
 # if yes, save to another csv file titled 'saved_stops' (write to existing one, create new one if none)
 
-# TODO: loop until user chooses to end the program
+# loop until user chooses to end the program --> this script will be run repeatedly
 
 
