@@ -1,4 +1,5 @@
 import pandas as pd
+import csv
 
 
 # creates a new saved_stops.csv file
@@ -26,8 +27,11 @@ def load_saved_stops():
 
 
 # add an entry to saved_stops.csv
-def add_to_saved_stops():
-    print("Placeholder")
-    # add to data frame
-    # write data frame to file
-    # or write directly to file in csv format?
+def add_to_saved_stops(route, stop):
+    # format a new row, write to the csv file
+    new_stop = [route, stop]
+    with open(r'saved_stops.csv', 'a') as f:
+        writer = csv.writer(f)
+        writer.writerow(new_stop)
+    print("Stop saved. Saved stops: ")
+    print(load_saved_stops().to_string(index=False))

@@ -10,11 +10,13 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.ui import Select  # for controlling drop-down boxes
 import pandas as pd
 import time
-from saved_stop_functions import load_saved_stops
 
-# TODO: implement getting predictions for saved stops
+from saved_stop_functions import load_saved_stops
+from saved_stop_functions import add_to_saved_stops
+
+# TODO: implement getting predictions for saved stops (need to add another column
 # create a new saved_stops file if none exists
-saved_stops = load_saved_stops()  # data frame with all saved stops
+saved_stops = load_saved_stops()  # data frame with all saved stops TODO: get rid of this?
 
 # print list of available lines, ask user to pick one
 lines = pd.read_csv('bus_stop_options.csv')  # read in csv file to var
@@ -34,7 +36,7 @@ while True:
             print("No saved stops.")
         else:
             print("Saved stops: ")
-            print(saved_stops)
+            print(saved_stops.to_string(index=False))
     else:
         print("Invalid route.")
 print("Line ", route_choice, " chosen")
@@ -86,7 +88,8 @@ print("Retrieved prediction in --- %s seconds ---" % round(time.clock() - start_
 save_choice = input("Would you like to save this stop (Y/N)? ")
 # TODO: cover cases of whitespace
 # TODO: simplify expression to cover upper and lowercase letters
-if save_choice == ('Y'|'y'):
-    print()
-elif save_choice == ('N'|'n'):
-    print()
+if save_choice == 'Y' or save_choice == 'y':
+    # TODO: check if stop already exists in saved
+    add_to_saved_stops(route_choice, lines.Stop[int(stop_choice)])
+elif save_choice == 'N' or save_choice == 'n':
+    print("Stop not saved. Ending program ...")
