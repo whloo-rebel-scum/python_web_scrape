@@ -84,7 +84,6 @@ print("The next bus(es) will arrive in:", arrival_times[0].text, "min")
 browser.close()
 print("Retrieved prediction in --- %s seconds ---" % round(time.clock() - start_time, 2))
 
-# TODO: ask if user would like to save the stop (Y/N)
 save_choice = input("Would you like to save this stop (Y/N)? ")
 # TODO: cover cases of whitespace
 # TODO: simplify expression to cover upper and lowercase letters
