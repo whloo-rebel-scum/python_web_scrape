@@ -7,7 +7,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.support.ui import Select  # for controlling drop-down boxes
+from selenium.webdriver.support.ui import Select
 import pandas as pd
 import time
 
@@ -16,16 +16,18 @@ from saved_stop_functions import add_to_saved_stops
 from saved_stop_functions import remove_saved_stop
 
 # TODO: implement getting predictions for saved stops (need to add another column)
-# create a new saved_stops file if none exists
 saved_stops = load_saved_stops()  # data frame with all saved stops
 
 # print list of available lines, ask user to pick one
 lines = pd.read_csv('bus_stop_options.csv')  # read in csv file to var
+# TODO: 'o' for options, don't print this stuff unless 'o' is entered?
 print("***NOTE: enter 'q' at any input to exit the program***")
 print("***enter 's' at line selection to show saved stops***")
 print("***enter 'r' at line selection to remove a saved stop")
 unique_lines = lines['Route'].unique()
 print("Running lines: ", unique_lines)  # isolate first col (Route)
+
+# TODO: simplify the following loop:
 while True:
     route_choice = input("Choose a bus line: ")
     route_choice = route_choice.replace(' ', '')  # eliminate whitespace
@@ -34,7 +36,7 @@ while True:
     elif route_choice == 'q':  # quit program
         print("Good-bye!")
         exit()
-    elif route_choice == 's':  # saved stop options
+    elif route_choice == 's':
         if saved_stops.empty:
             print("No saved stops.")
         else:

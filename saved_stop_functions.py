@@ -20,7 +20,7 @@ def load_saved_stops():
     try:
         saved_stops = pd.read_csv('saved_stops.csv')
         return saved_stops
-    except FileNotFoundError:
+    except FileNotFoundError:  # create a new saved_stops file if none exists
         create_saved_stops()
         saved_stops = pd.read_csv('saved_stops.csv')
         return saved_stops
