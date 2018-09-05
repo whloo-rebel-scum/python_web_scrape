@@ -97,7 +97,11 @@ print("Retrieved prediction in --- %s seconds ---" % round(time.clock() - start_
 save_choice = input("Would you like to save this stop (Y/N)? ")
 save_choice = save_choice.replace(' ', '')  # eliminate whitespace
 if save_choice == 'Y' or save_choice == 'y':
-    # TODO: check if stop already exists in saved
-    add_to_saved_stops(route_choice, lines.Stop[int(stop_choice)])
+    # check that route and stop are on the same line
+    ss = load_saved_stops()
+    if ((ss['Route'] == route_choice) & (ss['Stop'] == lines.Stop[int(stop_choice)])).any():
+        print("Stop already saved.")
+    else:
+        add_to_saved_stops(route_choice, lines.Stop[int(stop_choice)])
 elif save_choice == 'N' or save_choice == 'n':
     print("Stop not saved. Ending program ...")
