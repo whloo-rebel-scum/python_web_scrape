@@ -17,12 +17,13 @@ from saved_stop_functions import remove_saved_stop
 
 # TODO: implement getting predictions for saved stops (need to add another column)
 # create a new saved_stops file if none exists
-saved_stops = load_saved_stops()  # data frame with all saved stops TODO: get rid of this?
+saved_stops = load_saved_stops()  # data frame with all saved stops
 
 # print list of available lines, ask user to pick one
 lines = pd.read_csv('bus_stop_options.csv')  # read in csv file to var
 print("***NOTE: enter 'q' at any input to exit the program***")
 print("***enter 's' at line selection to show saved stops***")
+print("***enter 'r' at line selection to remove a saved stop")
 unique_lines = lines['Route'].unique()
 print("Running lines: ", unique_lines)  # isolate first col (Route)
 while True:
@@ -44,6 +45,7 @@ while True:
             print("No saved stops.")
         else:
             remove_saved_stop(saved_stops)
+            saved_stops = load_saved_stops()  # refresh saved_stops var
     else:
         print("Invalid choice.")
 

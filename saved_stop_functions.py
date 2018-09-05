@@ -52,5 +52,8 @@ def remove_saved_stop(saved_stops):
     # remove by index
     ss.drop(ss.index[int(remove_choice)], inplace=True)
     print("New saved stops list: ")
-    print(ss.to_string(index=False))
+    if ss.empty:
+        print("No stops saved.")
+    else:
+        print(ss.to_string(index=False))
     write_to_saved_stops(ss)
