@@ -19,7 +19,6 @@ TODO: gather data from Unitrans Website using Selenium: https://unitrans.ucdavis
     - TODO: saving operations:
         - checking for existing saved stop
         - getting predictions for all saved stops
-        - eliminating whitespace from user input for Y and N
     - TODO: etc
         - printing data frames without extra prints
         - putting code into more functions for better readability

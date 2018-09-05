@@ -14,7 +14,7 @@ import time
 from saved_stop_functions import load_saved_stops
 from saved_stop_functions import add_to_saved_stops
 
-# TODO: implement getting predictions for saved stops (need to add another column
+# TODO: implement getting predictions for saved stops (need to add another column)
 # create a new saved_stops file if none exists
 saved_stops = load_saved_stops()  # data frame with all saved stops TODO: get rid of this?
 
@@ -26,6 +26,7 @@ unique_lines = lines['Route'].unique()
 print("Running lines: ", unique_lines)  # isolate first col (Route)
 while True:
     route_choice = input("Choose a bus line: ")
+    route_choice = route_choice.replace(' ', '')  # eliminate whitespace
     if route_choice in unique_lines:
         break
     elif route_choice == 'q':  # quit program
@@ -48,6 +49,7 @@ print(stops)
 while True:  # loop until successful stop selection
     stop_choice_string = "Choose a stop for the " + route_choice + " Line (enter index): "
     stop_choice = input(stop_choice_string)  # choice should be a number (index)
+    stop_choice = stop_choice.replace(' ', '')  # eliminate whitespace
     if stop_choice == 'q':  # quit program
         print("Good-bye!")
         exit()
@@ -85,8 +87,7 @@ browser.close()
 print("Retrieved prediction in --- %s seconds ---" % round(time.clock() - start_time, 2))
 
 save_choice = input("Would you like to save this stop (Y/N)? ")
-# TODO: cover cases of whitespace
-# TODO: simplify expression to cover upper and lowercase letters
+save_choice = save_choice.replace(' ', '')  # eliminate whitespace
 if save_choice == 'Y' or save_choice == 'y':
     # TODO: check if stop already exists in saved
     add_to_saved_stops(route_choice, lines.Stop[int(stop_choice)])
