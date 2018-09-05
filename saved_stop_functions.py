@@ -35,3 +35,8 @@ def add_to_saved_stops(route, stop):
         writer.writerow(new_stop)
     print("Stop saved. Saved stops: ")
     print(load_saved_stops().to_string(index=False))
+
+
+# write a data frame back to saved_stops.csv
+def write_to_saved_stops(df):
+    df.to_csv("saved_stops.csv", encoding='utf-8', index=False)
