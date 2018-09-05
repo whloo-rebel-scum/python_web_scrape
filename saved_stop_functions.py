@@ -40,3 +40,17 @@ def add_to_saved_stops(route, stop):
 # write a data frame back to saved_stops.csv
 def write_to_saved_stops(df):
     df.to_csv("saved_stops.csv", encoding='utf-8', index=False)
+
+
+# remove a stop from the csv file
+def remove_saved_stop(saved_stops):
+    print(saved_stops.to_string(index=True))
+    remove_choice = input("Choose a stop to remove (by index): ")
+    remove_choice = remove_choice.replace(' ', '')  # eliminate whitespace
+    # load data frame
+    ss = load_saved_stops()
+    # remove by index
+    ss.drop(ss.index[int(remove_choice)], inplace=True)
+    print("New saved stops list: ")
+    print(ss.to_string(index=False))
+    write_to_saved_stops(ss)

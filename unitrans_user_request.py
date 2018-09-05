@@ -13,7 +13,7 @@ import time
 
 from saved_stop_functions import load_saved_stops
 from saved_stop_functions import add_to_saved_stops
-from saved_stop_functions import write_to_saved_stops
+from saved_stop_functions import remove_saved_stop
 
 # TODO: implement getting predictions for saved stops (need to add another column)
 # create a new saved_stops file if none exists
@@ -40,20 +40,10 @@ while True:
             print("Saved stops: ")
             print(saved_stops.to_string(index=False))
     elif route_choice == 'r':  # remove a saved stop
-        # TODO: add remove saved route option
         if saved_stops.empty:
             print("No saved stops.")
         else:
-            print(saved_stops.to_string(index=True))
-            remove_choice = input("Choose a stop to remove (by index): ")
-            remove_choice = remove_choice.replace(' ', '')  # eliminate whitespace
-            # load data frame
-            ss = load_saved_stops()
-            # remove by index ( df.drop(df.index[0], inplace=True) )
-            ss.drop(ss.index[int(remove_choice)], inplace=True)
-            print("New saved stops list: ")
-            print(ss.to_string(index=False))
-            write_to_saved_stops(ss)
+            remove_saved_stop(saved_stops)
     else:
         print("Invalid choice.")
 
@@ -61,7 +51,6 @@ print("Line ", route_choice, " chosen")
 print("Stops for Line ", route_choice)  # print list of relevant stops
 stops = (lines[lines.Route == route_choice])['Stop']
 print(stops.to_string(index=True))
-# TODO: how to suppress 'Name: Stop, dtype: object' printing
 
 while True:  # loop until successful stop selection
     stop_choice_string = "Choose a stop for the " + route_choice + " Line (enter index): "
