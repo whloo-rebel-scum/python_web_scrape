@@ -38,8 +38,20 @@ while True:
         else:
             print("Saved stops: ")
             print(saved_stops.to_string(index=False))
+    elif route_choice == 'r':  # remove a saved stop
+        # TODO: add remove saved route option
+        if saved_stops.empty:
+            print("No saved stops.")
+        else:
+            print(saved_stops.to_string)
+            remove_choice = input("Choose a stop to remove (by index): ")
+            remove_choice = remove_choice.replace(' ', '')  # eliminate whitespace
+            # load data frame
+            # remove by index
+            # write back to csv file
     else:
-        print("Invalid route.")
+        print("Invalid choice.")
+
 print("Line ", route_choice, " chosen")
 print("Stops for Line ", route_choice)  # print list of relevant stops
 stops = (lines[lines.Route == route_choice])['Stop']
