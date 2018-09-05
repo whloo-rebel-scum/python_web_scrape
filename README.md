@@ -17,9 +17,7 @@ TODO: gather data from Unitrans Website using Selenium: https://unitrans.ucdavis
 - COMPLETED: expand to all lines, store in a list of data frames
 - COMPLETED: optimize to only store routes and their stops, for later usage and user interaction
     - TODO: saving operations:
-        - checking for existing saved stop
         - getting predictions for all saved stops
     - TODO: etc
-        - printing data frames without extra prints
         - putting code into more functions for better readability
 - NEXT: scrape sports game scores
