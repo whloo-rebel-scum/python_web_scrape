@@ -14,6 +14,7 @@ import time
 from saved_stop_functions import load_saved_stops
 from saved_stop_functions import add_to_saved_stops
 from saved_stop_functions import remove_saved_stop
+from saved_stop_functions import saved_stop_predictions
 
 # TODO: implement getting predictions for saved stops (need to add another column)
 saved_stops = load_saved_stops()  # data frame with all saved stops
@@ -24,6 +25,7 @@ lines = pd.read_csv('bus_stop_options.csv')  # read in csv file to var
 print("***NOTE: enter 'q' at any input to exit the program***")
 print("***enter 's' at line selection to show saved stops***")
 print("***enter 'r' at line selection to remove a saved stop")
+print("***enter 'p' at line selection to get prediction times for saved stops")
 unique_lines = lines['Route'].unique()
 print("Running lines: ", unique_lines)  # isolate first col (Route)
 
@@ -48,6 +50,11 @@ while True:
         else:
             remove_saved_stop(saved_stops)
             saved_stops = load_saved_stops()  # refresh saved_stops var
+    elif route_choice == 'p':  # get predictions for saved stops
+        if saved_stops.empty:
+            print("No saved stops.")
+        else:
+            saved_stop_predictions(saved_stops)
     else:
         print("Invalid choice.")
 
