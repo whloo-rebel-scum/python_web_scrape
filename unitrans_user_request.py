@@ -90,9 +90,22 @@ while True:  # loop until successful stop selection
         browser.close()
         continue
 
+# TODO: make alternate print when bus no longer in service
+'''
+try:
+    WebDriverWait(browser, 5).until(EC.visibility_of_all_elements_located(
+        (By.XPATH, "//span[@class='time']")))
+    # print prediction information
+except TimeoutException:
+    prediction_check = browser.find_element_by_xpath("//div[@class='prediction']")
+    prediction_tags = prediction_check.find_elements_by_css_selector('p')
+    if prediction_tags[1].get_attribute('style') == "display: none;":
+        print("Line stopped running.")
+'''
+
 arrival_times = browser.find_elements_by_xpath("//span[@class='time']")
 print("For the '", lines.Stop[int(stop_choice)], "' stop: ")
-# TODO: make alternate print when bus no longer in service
+
 print("The next bus(es) will arrive in:", arrival_times[0].text, "min")
 browser.close()
 print("Retrieved prediction in --- %s seconds ---" % round(time.clock() - start_time, 2))
