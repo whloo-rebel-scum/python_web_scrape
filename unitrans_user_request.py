@@ -92,6 +92,7 @@ while True:  # loop until successful stop selection
 
 arrival_times = browser.find_elements_by_xpath("//span[@class='time']")
 print("For the '", lines.Stop[int(stop_choice)], "' stop: ")
+# TODO: make alternate print when bus no longer in service
 print("The next bus(es) will arrive in:", arrival_times[0].text, "min")
 browser.close()
 print("Retrieved prediction in --- %s seconds ---" % round(time.clock() - start_time, 2))
