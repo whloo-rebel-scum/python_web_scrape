@@ -24,6 +24,9 @@ start_time = 0
 #   lines - data frame of all running lines and their bus stops
 #   browser
 # output: returns index from lines when successful
+# Prompts the user to enter the the desired stop via data frame index.
+# A correct entry causes the browser to open, navigating to the correct stop page
+# TODO: move the browser navigation to prediction retrieval function? must consider error checking for stops
 def stop_selection(route_choice, lines, browser):
     # encapsulate in stop_selection function
     while True:  # loop until successful stop selection
@@ -31,7 +34,7 @@ def stop_selection(route_choice, lines, browser):
         stop_choice = input(stop_choice_string)  # choice should be a number (index)
         stop_choice = stop_choice.replace(' ', '')  # eliminate whitespace
         # TODO: add option to print all stops again
-        # TODO: add option to return to line selection?
+        # TODO: add option to return to line selection? should be covered when functions placed in while loop
         if stop_choice == 'q':  # quit program
             print("Good-bye!")
             exit()
@@ -49,6 +52,7 @@ def stop_selection(route_choice, lines, browser):
             print("Timed out waiting for page to load")
             browser.close()
 
+        # how to handle this in another function?
         select_stop = Select(browser.find_element_by_id('stop-select'))
         try:  # implement error checking for incorrect indexing
             select_stop.select_by_visible_text(lines.Stop[int(stop_choice)])
@@ -58,9 +62,46 @@ def stop_selection(route_choice, lines, browser):
             browser.close()
             continue
 
-# TODO:
-# def prediction_retrieval():
-# def save_prompt():
+
+# input:
+#   stop_choice
+#   lines - data frame of all running lines and their bus stops
+#   browser
+# NOTE: Browser must already be open
+# Locates prediction times on Unitrans web page. If prediction times not located, it declares the line inactive
+def prediction_retrieval(stop_choice, lines, browser):
+    try:
+        WebDriverWait(browser, 5).until(EC.visibility_of_all_elements_located(
+            (By.XPATH, "//span[@class='time']")))
+
+        # print prediction information
+        arrival_times = browser.find_elements_by_xpath("//span[@class='time']")
+        print("For the '", lines.Stop[int(stop_choice)], "' stop: ")
+        print("The next bus(es) will arrive in:", arrival_times[0].text, "min")
+        browser.quit()
+        print("Retrieved prediction in --- %s seconds ---" % round(time.clock() - start_time, 2))
+    except TimeoutException:
+        prediction_check = browser.find_element_by_xpath("//div[@class='prediction']")
+        prediction_tags = prediction_check.find_elements_by_css_selector('p')
+        if prediction_tags[1].get_attribute('style') == "display: none;":
+            print("Line stopped running.")
+
+
+# input:
+#   route_choice, stop_choice, lines
+# Asks user if they would like to save the selected stop.
+def save_prompt(route_choice, stop_choice, lines):
+    save_choice = input("Would you like to save this stop (Y/N)? ")
+    save_choice = save_choice.replace(' ', '')  # eliminate whitespace
+    if save_choice == 'Y' or save_choice == 'y':
+        # check that route and stop are on the same line
+        ss = load_saved_stops()
+        if ((ss['Route'] == route_choice) & (ss['Stop'] == lines.Stop[int(stop_choice)])).any():
+            print("Stop already saved.")
+        else:
+            add_to_saved_stops(route_choice, lines.Stop[int(stop_choice)])
+    elif save_choice == 'N' or save_choice == 'n':
+        print("Stop not saved.")
 
 
 def main():
@@ -108,35 +149,14 @@ def main():
     stops = (lines[lines.Route == route_choice])['Stop']
     print(stops.to_string(index=True))
 
+    # requires browser usage
     stop_choice = stop_selection(route_choice, lines, browser)
+    prediction_retrieval(stop_choice, lines, browser)
 
-    try:
-        WebDriverWait(browser, 5).until(EC.visibility_of_all_elements_located(
-            (By.XPATH, "//span[@class='time']")))
+    save_prompt(route_choice, stop_choice, lines)
 
-        # print prediction information
-        arrival_times = browser.find_elements_by_xpath("//span[@class='time']")
-        print("For the '", lines.Stop[int(stop_choice)], "' stop: ")
-        print("The next bus(es) will arrive in:", arrival_times[0].text, "min")
-        browser.quit()
-        print("Retrieved prediction in --- %s seconds ---" % round(time.clock() - start_time, 2))
-    except TimeoutException:
-        prediction_check = browser.find_element_by_xpath("//div[@class='prediction']")
-        prediction_tags = prediction_check.find_elements_by_css_selector('p')
-        if prediction_tags[1].get_attribute('style') == "display: none;":
-            print("Line stopped running.")
-
-    save_choice = input("Would you like to save this stop (Y/N)? ")
-    save_choice = save_choice.replace(' ', '')  # eliminate whitespace
-    if save_choice == 'Y' or save_choice == 'y':
-        # check that route and stop are on the same line
-        ss = load_saved_stops()
-        if ((ss['Route'] == route_choice) & (ss['Stop'] == lines.Stop[int(stop_choice)])).any():
-            print("Stop already saved.")
-        else:
-            add_to_saved_stops(route_choice, lines.Stop[int(stop_choice)])
-    elif save_choice == 'N' or save_choice == 'n':
-        print("Stop not saved. Ending program ...")
+    print("Ending program . . .")
 
 
 main()
+
