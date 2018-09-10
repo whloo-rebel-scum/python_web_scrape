@@ -16,16 +16,13 @@ from saved_stop_functions import add_to_saved_stops
 from saved_stop_functions import remove_saved_stop
 from saved_stop_functions import saved_stop_predictions
 
-saved_stops = load_saved_stops()  # data frame with all saved stops
-
-# print list of available lines, ask user to pick one
-lines = pd.read_csv('bus_stop_options.csv')  # read in csv file to var
+saved_stops = load_saved_stops()  # utilized in while loop
+lines = pd.read_csv('bus_stop_options.csv')
 print("***enter 'o' to show additional options")
 print("***enter 'q' at any input to exit the program***")
 unique_lines = lines['Route'].unique()  # isolate first col (Route)
-print("Running lines: ", unique_lines)
+print("Running lines: ", unique_lines)  # print list of available lines, ask user to pick one
 
-# TODO: simplify the following loop:
 while True:
     route_choice = input("Choose a bus line: ")
     route_choice = route_choice.replace(' ', '')  # eliminate whitespace
@@ -38,25 +35,19 @@ while True:
         print("***enter 's' at line selection to show saved stops***")
         print("***enter 'r' at line selection to remove a saved stop")
         print("***enter 'p' at line selection to get prediction times for saved stops")
-    elif route_choice == 's':
-        if saved_stops.empty:
-            print("No saved stops.")
-        else:
-            print("Saved stops: ")
-            print(saved_stops.to_string(index=False))
+    elif saved_stops.empty:  # the statements below all require checking if saved_stops is empty
+        print("No saved stops.")
+    elif route_choice == 's':  # print saved stops
+        print("Saved stops: ")
+        print(saved_stops.to_string(index=False))
     elif route_choice == 'r':  # remove a saved stop
-        if saved_stops.empty:
-            print("No saved stops.")
-        else:
-            remove_saved_stop(saved_stops)
-            saved_stops = load_saved_stops()  # refresh saved_stops var
+        remove_saved_stop(saved_stops)
+        saved_stops = load_saved_stops()  # refresh saved_stops
     elif route_choice == 'p':  # get predictions for saved stops
-        if saved_stops.empty:
-            print("No saved stops.")
-        else:
-            saved_stop_predictions(saved_stops)
+        saved_stop_predictions(saved_stops)
     else:
         print("Invalid choice.")
+
 
 print("Line ", route_choice, " chosen")
 print("Stops for Line ", route_choice)  # print list of relevant stops
