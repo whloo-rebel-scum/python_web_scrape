@@ -16,60 +16,56 @@ from saved_stop_functions import add_to_saved_stops
 from saved_stop_functions import remove_saved_stop
 from saved_stop_functions import saved_stop_predictions
 
-start_time = 0
-
 
 # input:
 #   route_choice
-#   lines - data frame of all running lines and their bus stops
-#   browser
 # output: returns index from lines when successful
 # Prompts the user to enter the the desired stop via data frame index.
 # A correct entry causes the browser to open, navigating to the correct stop page
-# TODO: move the browser navigation to prediction retrieval function? must consider error checking for stops
-def stop_selection(route_choice, lines, browser):
-    # encapsulate in stop_selection function
-    while True:  # loop until successful stop selection
-        stop_choice_string = "Choose a stop for the " + route_choice + " Line (enter index): "
-        stop_choice = input(stop_choice_string)  # choice should be a number (index)
-        stop_choice = stop_choice.replace(' ', '')  # eliminate whitespace
-        # TODO: add option to print all stops again
-        # TODO: add option to return to line selection? should be covered when functions placed in while loop
-        if stop_choice == 'q':  # quit program
-            print("Good-bye!")
-            exit()
-
-        global start_time
-        start_time = time.clock()
-        route_url = "https://unitrans.ucdavis.edu/routes/" + route_choice + "/prediction"
-        browser.get(route_url)
-        timeout = 20
-        try:
-            # Wait until the final element is loaded.
-            WebDriverWait(browser, timeout).until(EC.visibility_of_element_located(
-                (By.XPATH, "//div[@class='container']")))
-        except TimeoutException:
-            print("Timed out waiting for page to load")
-            browser.close()
-
-        # how to handle this in another function?
-        select_stop = Select(browser.find_element_by_id('stop-select'))
-        try:  # implement error checking for incorrect indexing
-            select_stop.select_by_visible_text(lines.Stop[int(stop_choice)])
-            return stop_choice
-        except NoSuchElementException:
-            print("Invalid stop selection.")
-            browser.close()
-            continue
+def stop_selection(route_choice):
+    stop_choice_string = "Choose a stop for the " + route_choice + " Line (enter index): "
+    stop_choice = input(stop_choice_string)  # choice should be a number (index)
+    stop_choice = stop_choice.replace(' ', '')  # eliminate whitespace
+    # TODO: add option to print all stops again
+    if stop_choice == 'q':  # quit program
+        print("Good-bye!")
+        exit()
+    return stop_choice
 
 
 # input:
 #   stop_choice
 #   lines - data frame of all running lines and their bus stops
-#   browser
-# NOTE: Browser must already be open
-# Locates prediction times on Unitrans web page. If prediction times not located, it declares the line inactive
-def prediction_retrieval(stop_choice, lines, browser):
+# Opens browser and locates prediction times on Unitrans web page. If prediction times not located,
+# it declares the line inactive. Returns True or False, indicating if retrieval was successful
+def prediction_retrieval(route_choice, stop_choice, lines):
+    start_time = time.clock()
+    option = webdriver.ChromeOptions()
+    option.add_argument("--incognito")
+    browser = webdriver.Chrome(executable_path='C:\\Users\\whloo\\PycharmProjects\\chromedriver.exe',
+                               chrome_options=option)
+    route_url = "https://unitrans.ucdavis.edu/routes/" + route_choice + "/prediction"
+    browser.get(route_url)
+    timeout = 20
+    try:
+        # Wait until the final element is loaded.
+        WebDriverWait(browser, timeout).until(EC.visibility_of_element_located(
+            (By.XPATH, "//div[@class='container']")))
+    except TimeoutException:
+        print("Timed out waiting for page to load")
+        browser.close()
+        return False
+
+    # how to handle this in another function?
+    select_stop = Select(browser.find_element_by_id('stop-select'))
+    try:  # implement error checking for incorrect indexing
+        select_stop.select_by_visible_text(lines.Stop[int(stop_choice)])
+    except NoSuchElementException:
+        print("Invalid stop selection.")
+        browser.close()
+        return False
+
+    # TODO: test if the Timeout Exception actually works for active lines with no more buses
     try:
         WebDriverWait(browser, 5).until(EC.visibility_of_all_elements_located(
             (By.XPATH, "//span[@class='time']")))
@@ -85,6 +81,7 @@ def prediction_retrieval(stop_choice, lines, browser):
         prediction_tags = prediction_check.find_elements_by_css_selector('p')
         if prediction_tags[1].get_attribute('style') == "display: none;":
             print("Line stopped running.")
+    return True
 
 
 # input:
@@ -105,12 +102,6 @@ def save_prompt(route_choice, stop_choice, lines):
 
 
 def main():
-    option = webdriver.ChromeOptions()
-    option.add_argument("--incognito")
-    # TODO: open browser only when request if made
-    browser = webdriver.Chrome(executable_path='C:\\Users\\whloo\\PycharmProjects\\chromedriver.exe',
-                               chrome_options=option)
-
     saved_stops = load_saved_stops()  # utilized in while loop
     lines = pd.read_csv('bus_stop_options.csv')
     print("***enter 'o' to show additional options")
@@ -124,6 +115,7 @@ def main():
         route_choice = route_choice.replace(' ', '')  # eliminate whitespace
         if route_choice in unique_lines:
             break
+            # place functions here
         elif route_choice == 'q':  # quit program
             print("Good-bye!")
             exit()
@@ -150,8 +142,10 @@ def main():
     print(stops.to_string(index=True))
 
     # requires browser usage
-    stop_choice = stop_selection(route_choice, lines, browser)
-    prediction_retrieval(stop_choice, lines, browser)
+    while True:
+        stop_choice = stop_selection(route_choice)
+        if prediction_retrieval(route_choice, stop_choice, lines):  # return true if successful retrieval
+            break
 
     save_prompt(route_choice, stop_choice, lines)
 
