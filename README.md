@@ -18,4 +18,5 @@ TODO: gather data from Unitrans Website using Selenium: https://unitrans.ucdavis
 - COMPLETED: optimize to only store routes and their stops, for later usage and user interaction
     - TODO: etc
         - putting code into more functions for better readability
+- TODO: combine all bus line scripts into one program
 - NEXT: scrape sports game scores and stats, develop consistency rating?
