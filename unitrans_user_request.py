@@ -58,6 +58,8 @@ while True:  # loop until successful stop selection
     stop_choice_string = "Choose a stop for the " + route_choice + " Line (enter index): "
     stop_choice = input(stop_choice_string)  # choice should be a number (index)
     stop_choice = stop_choice.replace(' ', '')  # eliminate whitespace
+    # TODO: add option to print all stops again
+    # TODO: add option to return to line selection?
     if stop_choice == 'q':  # quit program
         print("Good-bye!")
         exit()
