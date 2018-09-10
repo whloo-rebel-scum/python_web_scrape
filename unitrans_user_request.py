@@ -136,6 +136,7 @@ def main():
         else:
             print("Invalid choice.")
 
+    # move to stop_selection?
     print("Line ", route_choice, " chosen")
     print("Stops for Line ", route_choice)  # print list of relevant stops
     stops = (lines[lines.Route == route_choice])['Stop']
