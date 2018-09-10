@@ -8,6 +8,7 @@ import pandas as pd
 import csv
 import time
 
+
 # creates a new saved_stops.csv file
 def create_saved_stops():
     routes = list()
