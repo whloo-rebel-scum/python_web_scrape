@@ -19,6 +19,7 @@ from saved_stop_functions import saved_stop_predictions
 
 # input:
 #   route_choice
+#   stops - data frame of all stops for a given route_choice
 # output: returns index from lines when successful
 # Prompts the user to enter the the desired stop via data frame index.
 # A correct entry causes the browser to open, navigating to the correct stop page
@@ -118,7 +119,7 @@ def save_prompt(route_choice, stop_choice, lines):
 
 def main():
     saved_stops = load_saved_stops()  # utilized in while loop
-    lines = pd.read_csv('bus_stop_options.csv')
+    lines = pd.read_csv('stop_files/bus_stop_options.csv')
     print("***enter 'o' to show additional options for user input")
     print("***enter 'q' at any input to exit the program***")
     unique_lines = lines['Route'].unique()  # isolate first col (Route)

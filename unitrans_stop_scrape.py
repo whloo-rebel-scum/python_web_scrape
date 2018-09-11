@@ -72,6 +72,6 @@ all_lines = pd.DataFrame({
     "Stop": stops
 })
 
-all_lines.to_csv("bus_stop_options.csv", encoding='utf-8', index=False)
+all_lines.to_csv("stop_files/bus_stop_options.csv", encoding='utf-8', index=False)
 browser.close()
 print("Scraping finished in --- %s seconds ---" % round(time.clock() - start_time, 2))
