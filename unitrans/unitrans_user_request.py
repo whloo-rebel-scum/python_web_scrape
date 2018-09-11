@@ -155,16 +155,24 @@ def main():
             print("***enter 'pr' at line selection to get prediction times for saved stops")
         elif route_choice == 'p':  # print running lines again
             print("Running lines: ", unique_lines)
-        elif saved_stops.empty:  # the statements below all require checking if saved_stops is empty
-            print("No saved stops.")
+        # all but one statement below require a saved_stop.empty check
         elif route_choice == 's':  # print saved stops
-            print("Saved stops: ")
-            print(saved_stops.to_string(index=False))
+            if saved_stops.empty:
+                print("No saved stops.")
+            else:
+                print("Saved stops: ")
+                print(saved_stops.to_string(index=False))
         elif route_choice == 'r':  # remove a saved stop
-            remove_saved_stop(saved_stops)
+            if saved_stops.empty:
+                print("No saved stops.")
+            else:
+                remove_saved_stop(saved_stops)
         elif route_choice == 'pr':  # get predictions for saved stops
-            saved_stop_predictions(saved_stops)
-        else:  # TODO: move above saved_stop.empty check?
+            if saved_stops.empty:
+                print("No saved stops.")
+            else:
+                saved_stop_predictions(saved_stops)
+        else:
             print("Invalid choice.")
 
 
