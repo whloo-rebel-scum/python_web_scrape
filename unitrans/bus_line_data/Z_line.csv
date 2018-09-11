@@ -1,34 +1,34 @@
 Direction,Stop,Next Bus
-Outbound,Memorial Union & East Island ,"4, 64m"
-Outbound,B & 4th  ,"4, 64m"
-Outbound,2nd & B ,"6, 66m"
-Outbound,2nd & E ,"7, 67m"
-Outbound,H & Amtrak Station ,"8, 68m"
-Outbound,3rd & K ,"10, 70m"
-Outbound,L & 4th ,"11, 71m"
-Outbound,5th & Pole Line ,"12, 72m"
-Outbound,5th & Post Office / Pole Line ,"13, 73m"
-Outbound,5th & Cantrill  ,"14, 74m"
-Outbound,5th & Pena ,"16, 76m"
-Outbound,5th & Spafford ,"16, 76m"
-Outbound,5th & Windmere Apts. ,"17, 77m"
-Outbound,5th Street & Verona Terrace ,"17, 77m"
-Outbound,Alhambra & 5th ,"18, 78m"
-Outbound,Alhambra & Arroyo ,"18, 78m"
-Outbound,Alhambra & Mace ,"19, 79m"
-Outbound,Mace & 2nd ,"21, 81m"
-Inbound,2nd St. & Target Drive ,"24, 84m"
-Inbound,2nd Street & Cousteau Place ,"24, 84m"
-Inbound,Pena  & 2nd St. ,"25, 85m"
-Inbound,5th & San Rafael ,"26, 86m"
-Inbound,5th & Cantrill ,"27, 87m"
-Inbound,5th & Post Office / Pole Line ,"29, 89m"
-Inbound,5th & Pole Line ,"29, 89m"
-Inbound,5th & Davis PW Corp Yard ,"30, 90m"
-Inbound,L & 425 ,"30, 90m"
-Inbound,3rd & K ,"30, 90m"
-Inbound,H Alley & 2nd ,"32, 92m"
-Inbound,2nd & E ,"34, 94m"
-Inbound,B & 4th ,"34, 94m"
-Inbound,Russell & A ,"37, 97m"
-Inbound,Memorial Union & Howard ,"38, 98m"
+Outbound,Memorial Union & East Island ,"19, 89m"
+Outbound,B & 4th  ,"21, 91m"
+Outbound,2nd & B ,"23, 93m"
+Outbound,2nd & E ,"24, 94m"
+Outbound,H & Amtrak Station ,"25, 95m"
+Outbound,3rd & K ,"27, 97m"
+Outbound,L & 4th ,"28, 98m"
+Outbound,5th & Pole Line ,29m
+Outbound,5th & Post Office / Pole Line ,30m
+Outbound,5th & Cantrill  ,32m
+Outbound,5th & Pena ,32m
+Outbound,5th & Spafford ,32m
+Outbound,5th & Windmere Apts. ,33m
+Outbound,5th Street & Verona Terrace ,34m
+Outbound,Alhambra & 5th ,34m
+Outbound,Alhambra & Arroyo ,35m
+Outbound,Alhambra & Mace ,36m
+Outbound,Mace & 2nd ,37m
+Inbound,2nd St. & Target Drive ,39m
+Inbound,2nd Street & Cousteau Place ,40m
+Inbound,Pena  & 2nd St. ,41m
+Inbound,5th & San Rafael ,41m
+Inbound,5th & Cantrill ,44m
+Inbound,5th & Post Office / Pole Line ,45m
+Inbound,5th & Pole Line ,46m
+Inbound,5th & Davis PW Corp Yard ,46m
+Inbound,L & 425 ,47m
+Inbound,3rd & K ,48m
+Inbound,H Alley & 2nd ,50m
+Inbound,2nd & E ,50m
+Inbound,B & 4th ,52m
+Inbound,Russell & A ,54m
+Inbound,Memorial Union & Howard ,"59, 129m"
