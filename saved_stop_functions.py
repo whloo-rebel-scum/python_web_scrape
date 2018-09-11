@@ -17,7 +17,7 @@ def create_saved_stops():
         "Route": routes,
         "Stop": stops
     })
-    saved_stops.to_csv("saved_stops.csv", encoding='utf-8', index=False)
+    saved_stops.to_csv("stop_files/saved_stops.csv", encoding='utf-8', index=False)
 
 
 # returns data frame read in from saved_stops.csv
@@ -25,11 +25,11 @@ def create_saved_stops():
 def load_saved_stops():
     # use while loop instead to reduce number of lines?
     try:
-        saved_stops = pd.read_csv('saved_stops.csv')
+        saved_stops = pd.read_csv('stop_files/saved_stops.csv')
         return saved_stops
     except FileNotFoundError:  # create a new saved_stops file if none exists
         create_saved_stops()
-        saved_stops = pd.read_csv('saved_stops.csv')
+        saved_stops = pd.read_csv('stop_files/saved_stops.csv')
         return saved_stops
 
 
@@ -37,7 +37,7 @@ def load_saved_stops():
 def add_to_saved_stops(route, stop):
     # format a new row, write to the csv file
     new_stop = [route, stop]
-    with open(r'saved_stops.csv', 'a') as f:
+    with open(r'stop_files/saved_stops.csv', 'a') as f:
         writer = csv.writer(f)
         writer.writerow(new_stop)
     print("Stop saved. Saved stops: ")
@@ -46,7 +46,7 @@ def add_to_saved_stops(route, stop):
 
 # write a data frame back to saved_stops.csv
 def write_to_saved_stops(df):
-    df.to_csv("saved_stops.csv", encoding='utf-8', index=False)
+    df.to_csv("stop_files/saved_stops.csv", encoding='utf-8', index=False)
 
 
 # remove a stop from the csv file

@@ -118,7 +118,7 @@ def save_prompt(route_choice, stop_choice, lines):
 
 
 def main():
-    saved_stops = load_saved_stops()  # utilized in while loop
+
     lines = pd.read_csv('stop_files/bus_stop_options.csv')
     print("***enter 'o' to show additional options for user input")
     print("***enter 'q' at any input to exit the program***")
@@ -126,6 +126,7 @@ def main():
     print("Running lines: ", unique_lines)  # print list of available lines, ask user to pick one
 
     while True:
+        saved_stops = load_saved_stops()
         route_choice = input("Choose a bus line: ")
         route_choice = route_choice.replace(' ', '')  # eliminate whitespace
         if route_choice in unique_lines:  # execute main input and retrieval
@@ -153,6 +154,8 @@ def main():
             print("***enter 'r' at line selection to remove a saved stop")
             print("***enter 'p' at line selection to print running lines again")
             print("***enter 'pr' at line selection to get prediction times for saved stops")
+        elif route_choice == 'p':  # print running lines again
+            print("Running lines: ", unique_lines)
         elif saved_stops.empty:  # the statements below all require checking if saved_stops is empty
             print("No saved stops.")
         elif route_choice == 's':  # print saved stops
@@ -163,9 +166,7 @@ def main():
             saved_stops = load_saved_stops()  # refresh saved_stops
         elif route_choice == 'pr':  # get predictions for saved stops
             saved_stop_predictions(saved_stops)
-        elif route_choice == 'p':  # print running lines again
-            print("Running lines: ", unique_lines)
-        else:
+        else:  # TODO: move above saved_stop.empty check?
             print("Invalid choice.")
 
 
