@@ -50,12 +50,12 @@ def write_to_saved_stops(df):
 
 
 # remove a stop from the csv file
-# TODO: write documentation for backing out of removal
 def remove_saved_stop(saved_stops):
     print(saved_stops.to_string(index=True))
     remove_choice = input("Choose a stop to remove (by index): ")
     remove_choice = remove_choice.replace(' ', '')  # eliminate whitespace
     if remove_choice == 'q':
+        print("Remove operation halted.")
         return
     # load data frame
     ss = load_saved_stops()
