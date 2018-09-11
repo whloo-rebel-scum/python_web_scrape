@@ -125,7 +125,7 @@ def main():
     print("Running lines: ", unique_lines)  # print list of available lines, ask user to pick one
 
     while True:
-        saved_stops = load_saved_stops()
+        saved_stops = load_saved_stops()  # initializes, and also refreshes after removal of stop
         route_choice = input("Choose a bus line: ")
         route_choice = route_choice.replace(' ', '')  # eliminate whitespace
         if route_choice in unique_lines:  # execute main input and retrieval
@@ -162,7 +162,6 @@ def main():
             print(saved_stops.to_string(index=False))
         elif route_choice == 'r':  # remove a saved stop
             remove_saved_stop(saved_stops)
-            saved_stops = load_saved_stops()  # refresh saved_stops
         elif route_choice == 'pr':  # get predictions for saved stops
             saved_stop_predictions(saved_stops)
         else:  # TODO: move above saved_stop.empty check?
