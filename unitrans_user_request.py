@@ -22,15 +22,22 @@ from saved_stop_functions import saved_stop_predictions
 # output: returns index from lines when successful
 # Prompts the user to enter the the desired stop via data frame index.
 # A correct entry causes the browser to open, navigating to the correct stop page
-def stop_selection(route_choice):
-    stop_choice_string = "Choose a stop for the " + route_choice + " Line (enter index): "
-    stop_choice = input(stop_choice_string)  # choice should be a number (index)
-    stop_choice = stop_choice.replace(' ', '')  # eliminate whitespace
-    # TODO: add option to print all stops again
-    if stop_choice == 'q':  # quit program
-        print("Good-bye!")
-        exit()
-    return stop_choice
+def stop_selection(route_choice, stops):
+    while True:
+        stop_choice_string = "Choose a stop for the " + route_choice + " Line (enter index): "
+        stop_choice = input(stop_choice_string)  # choice should be a number (index)
+        stop_choice = stop_choice.replace(' ', '')  # eliminate whitespace
+        if stop_choice == 'q':  # quit program
+            print("Stop selection halted.")
+            return stop_choice
+        elif stop_choice == 'o':  # show options
+            print("OPTIONS:")
+            print("Enter 'q' to halt stop selection and return to line selection.")
+            print("Enter 'p' to print stops for the ", route_choice, " Line again.")
+        elif stop_choice == 'p':  # print lines again
+            print(stops.to_string(index=True))
+        else:
+            return stop_choice
 
 
 # input:
@@ -81,48 +88,70 @@ def prediction_retrieval(route_choice, stop_choice, lines):
         prediction_tags = prediction_check.find_elements_by_css_selector('p')
         if prediction_tags[1].get_attribute('style') == "display: none;":
             print("Line stopped running.")
+            browser.close()
     return True
 
 
 # input:
 #   route_choice, stop_choice, lines
 # Asks user if they would like to save the selected stop.
+# Save if 'yes', checking if the stop already exists in the list.
 def save_prompt(route_choice, stop_choice, lines):
-    save_choice = input("Would you like to save this stop (Y/N)? ")
-    save_choice = save_choice.replace(' ', '')  # eliminate whitespace
-    if save_choice == 'Y' or save_choice == 'y':
-        # check that route and stop are on the same line
-        ss = load_saved_stops()
-        if ((ss['Route'] == route_choice) & (ss['Stop'] == lines.Stop[int(stop_choice)])).any():
-            print("Stop already saved.")
+    while True:
+        save_choice = input("Would you like to save this stop (Y/N)? ")
+        save_choice = save_choice.replace(' ', '')  # eliminate whitespace
+        if save_choice == 'Y' or save_choice == 'y':
+            # check that route and stop are on the same line
+            ss = load_saved_stops()
+            if ((ss['Route'] == route_choice) & (ss['Stop'] == lines.Stop[int(stop_choice)])).any():
+                print("Stop already saved.")
+            else:
+                add_to_saved_stops(route_choice, lines.Stop[int(stop_choice)])
+            break
+        elif save_choice == 'N' or save_choice == 'n':
+            print("Stop not saved.")
+            break
         else:
-            add_to_saved_stops(route_choice, lines.Stop[int(stop_choice)])
-    elif save_choice == 'N' or save_choice == 'n':
-        print("Stop not saved.")
+            print("Invalid selection, try again.")
+            continue
 
 
 def main():
     saved_stops = load_saved_stops()  # utilized in while loop
     lines = pd.read_csv('bus_stop_options.csv')
-    print("***enter 'o' to show additional options")
+    print("***enter 'o' to show additional options for user input")
     print("***enter 'q' at any input to exit the program***")
     unique_lines = lines['Route'].unique()  # isolate first col (Route)
     print("Running lines: ", unique_lines)  # print list of available lines, ask user to pick one
 
-    # TODO: place functions in this loop
     while True:
         route_choice = input("Choose a bus line: ")
         route_choice = route_choice.replace(' ', '')  # eliminate whitespace
-        if route_choice in unique_lines:
-            break
-            # place functions here
-        elif route_choice == 'q':  # quit program
-            print("Good-bye!")
+        if route_choice in unique_lines:  # execute main input and retrieval
+            print("Line ", route_choice, " chosen")
+            print("Stops for Line ", route_choice)  # print list of relevant stops
+            stops = (lines[lines.Route == route_choice])['Stop']
+            print(stops.to_string(index=True))
+
+            while True:
+                stop_choice = stop_selection(route_choice, stops)
+                if stop_choice == 'q':
+                    break
+                if prediction_retrieval(route_choice, stop_choice, lines):  # return true if successful retrieval
+                    break
+            if stop_choice == 'q':
+                continue
+
+            save_prompt(route_choice, stop_choice, lines)
+
+        elif route_choice == 'q' or route_choice == 'exit':  # quit program
+            print("Ending program . . .")
             exit()
         elif route_choice == 'o':  # options
             print("***enter 's' at line selection to show saved stops***")
             print("***enter 'r' at line selection to remove a saved stop")
-            print("***enter 'p' at line selection to get prediction times for saved stops")
+            print("***enter 'p' at line selection to print running lines again")
+            print("***enter 'pr' at line selection to get prediction times for saved stops")
         elif saved_stops.empty:  # the statements below all require checking if saved_stops is empty
             print("No saved stops.")
         elif route_choice == 's':  # print saved stops
@@ -131,26 +160,12 @@ def main():
         elif route_choice == 'r':  # remove a saved stop
             remove_saved_stop(saved_stops)
             saved_stops = load_saved_stops()  # refresh saved_stops
-        elif route_choice == 'p':  # get predictions for saved stops
+        elif route_choice == 'pr':  # get predictions for saved stops
             saved_stop_predictions(saved_stops)
+        elif route_choice == 'p':  # print running lines again
+            print("Running lines: ", unique_lines)
         else:
             print("Invalid choice.")
-
-    # move to stop_selection?
-    print("Line ", route_choice, " chosen")
-    print("Stops for Line ", route_choice)  # print list of relevant stops
-    stops = (lines[lines.Route == route_choice])['Stop']
-    print(stops.to_string(index=True))
-
-    # requires browser usage
-    while True:
-        stop_choice = stop_selection(route_choice)
-        if prediction_retrieval(route_choice, stop_choice, lines):  # return true if successful retrieval
-            break
-
-    save_prompt(route_choice, stop_choice, lines)
-
-    print("Ending program . . .")
 
 
 main()
