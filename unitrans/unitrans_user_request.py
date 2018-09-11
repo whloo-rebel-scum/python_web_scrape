@@ -73,7 +73,6 @@ def prediction_retrieval(route_choice, stop_choice, lines):
         browser.close()
         return False
 
-    # TODO: test if the Timeout Exception actually works for active lines with no more buses
     try:
         WebDriverWait(browser, 5).until(EC.visibility_of_all_elements_located(
             (By.XPATH, "//span[@class='time']")))
