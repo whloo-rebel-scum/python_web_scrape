@@ -52,10 +52,12 @@ def stop_selection(route_choice, stops):
 
 
 # input:
+#   route_choice
 #   stop_choice
 #   lines - data frame of all running lines and their bus stops
 # Opens browser and locates prediction times on Unitrans web page. If prediction times not located,
 # it declares the line inactive. Returns True or False, indicating if retrieval was successful
+# Successful defined as opening webpage and locating stop, may not necessarily have prediction times.
 def prediction_retrieval(route_choice, stop_choice, lines):
     start_time = time.clock()
     option = webdriver.ChromeOptions()
@@ -74,7 +76,6 @@ def prediction_retrieval(route_choice, stop_choice, lines):
         browser.close()
         return False
 
-    # how to handle this in another function?
     select_stop = Select(browser.find_element_by_id('stop-select'))
     try:  # implement error checking for incorrect indexing
         select_stop.select_by_visible_text(lines.Stop[int(stop_choice)])
@@ -83,6 +84,7 @@ def prediction_retrieval(route_choice, stop_choice, lines):
         browser.close()
         return False
 
+    # both cases below are still considered 'successful'
     try:
         WebDriverWait(browser, 5).until(EC.visibility_of_all_elements_located(
             (By.XPATH, "//span[@class='time']")))
