@@ -11,6 +11,7 @@ from selenium.webdriver.support.ui import Select
 import pandas as pd
 import time
 
+# TODO: import more efficiently?
 from unitrans.saved_stop_functions import load_saved_stops
 from unitrans.saved_stop_functions import add_to_saved_stops
 from unitrans.saved_stop_functions import remove_saved_stop
@@ -20,25 +21,34 @@ from unitrans.saved_stop_functions import saved_stop_predictions
 # input:
 #   route_choice
 #   stops - data frame of all stops for a given route_choice
-# output: returns index from lines when successful
+# output: returns index from lines (when successful)
 # Prompts the user to enter the the desired stop via data frame index.
-# A correct entry causes the browser to open, navigating to the correct stop page
+# A correct entry causes the function to return the stop_choice
 def stop_selection(route_choice, stops):
     while True:
-        stop_choice_string = "Choose a stop for the " + route_choice + " Line (enter index): "
-        stop_choice = input(stop_choice_string)  # choice should be a number (index)
+        stop_choice_string = "Enter stop index for the " + route_choice + " Line: "
+        stop_choice = input(stop_choice_string)  # choice should be a number
         stop_choice = stop_choice.replace(' ', '')  # eliminate whitespace
-        if stop_choice == 'q':  # quit program
+        if stop_choice == 'q':
             print("Stop selection halted.")
             return stop_choice
-        elif stop_choice == 'o':  # show options
+        elif stop_choice == 'o':
             print("OPTIONS:")
             print("Enter 'q' to halt stop selection and return to line selection.")
             print("Enter 'p' to print stops for the ", route_choice, " Line again.")
-        elif stop_choice == 'p':  # print lines again
+        elif stop_choice == 'p':  # print stops again
             print(stops.to_string(index=True))
-        else:
-            return stop_choice
+        else: # check if input is numeric
+            try:
+                val = int(stop_choice)
+                if val >= 0:  # check for negative input
+                    return stop_choice
+                else:
+                    print("Enter a non-negative number.")
+                    continue
+            except ValueError:
+                print("Invalid input.")
+                continue
 
 
 # input:
@@ -125,6 +135,7 @@ def main():
     print("Running lines: ", unique_lines)  # print list of available lines, ask user to pick one
 
     while True:
+        # main prediction retrieval block
         saved_stops = load_saved_stops()  # initializes, and also refreshes after removal of stop
         route_choice = input("Choose a bus line: ")
         route_choice = route_choice.replace(' ', '')  # eliminate whitespace
@@ -140,7 +151,7 @@ def main():
                     break
                 if prediction_retrieval(route_choice, stop_choice, lines):  # return true if successful retrieval
                     break
-            if stop_choice == 'q':
+            if stop_choice == 'q':  # skip save_prompt when user wants to return to line input
                 continue
 
             save_prompt(route_choice, stop_choice, lines)
