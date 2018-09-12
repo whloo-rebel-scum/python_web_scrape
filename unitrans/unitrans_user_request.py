@@ -38,7 +38,7 @@ def stop_selection(route_choice, stops):
             print("Enter 'p' to print stops for the ", route_choice, " Line again.")
         elif stop_choice == 'p':  # print stops again
             print(stops.to_string(index=True))
-        else: # check if input is numeric
+        else:  # check if input is numeric
             try:
                 val = int(stop_choice)
                 if val >= 0:  # check for negative input
@@ -83,6 +83,10 @@ def prediction_retrieval(route_choice, stop_choice, lines):
         print("Invalid stop selection.")
         browser.close()
         return False
+    except KeyError:
+        print("Index out of bounds.")
+        browser.close()
+        return False
 
     # both cases below are still considered 'successful'
     try:
@@ -112,7 +116,7 @@ def save_prompt(route_choice, stop_choice, lines):
     while True:
         save_choice = input("Would you like to save this stop (Y/N)? ")
         save_choice = save_choice.replace(' ', '')  # eliminate whitespace
-        if save_choice == 'Y' or save_choice == 'y':
+        if save_choice.lower() == 'y' or save_choice.lower() == 'yes':
             # check that route and stop are on the same line
             ss = load_saved_stops()
             if ((ss['Route'] == route_choice) & (ss['Stop'] == lines.Stop[int(stop_choice)])).any():
@@ -120,7 +124,7 @@ def save_prompt(route_choice, stop_choice, lines):
             else:
                 add_to_saved_stops(route_choice, lines.Stop[int(stop_choice)])
             break
-        elif save_choice == 'N' or save_choice == 'n':
+        elif save_choice.lower() == 'n' or save_choice.lower() == 'no':
             print("Stop not saved.")
             break
         else:
@@ -134,10 +138,10 @@ def main():
     print("***enter 'o' to show additional options for user input")
     print("***enter 'q' at any input to exit the program***")
     unique_lines = lines['Route'].unique()  # isolate first col (Route)
-    print("Running lines: ", unique_lines)  # print list of available lines, ask user to pick one
 
     while True:
         # main prediction retrieval block
+        print("Running lines: ", unique_lines)  # print list of available lines, ask user to pick one
         saved_stops = load_saved_stops()  # initializes, and also refreshes after removal of stop
         route_choice = input("Choose a bus line: ")
         route_choice = route_choice.replace(' ', '')  # eliminate whitespace
