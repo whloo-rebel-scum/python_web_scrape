@@ -140,11 +140,10 @@ def main():
     unique_lines = lines['Route'].unique()  # isolate first col (Route)
 
     while True:
-        # main prediction retrieval block
         print("Running lines: ", unique_lines)  # print list of available lines, ask user to pick one
         saved_stops = load_saved_stops()  # initializes, and also refreshes after removal of stop
         route_choice = input("Choose a bus line: ")
-        route_choice = route_choice.replace(' ', '')  # eliminate whitespace
+        route_choice = route_choice.replace(' ', '')
         if route_choice in unique_lines:  # execute main input and retrieval
             print("Line ", route_choice, " chosen")
             print("Stops for Line ", route_choice)  # print list of relevant stops

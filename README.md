@@ -18,5 +18,5 @@ TODO: gather data from Unitrans Website using Selenium: https://unitrans.ucdavis
 - COMPLETED: optimize to only store routes and their stops, for later usage and user interaction
 - TODO: fix prediction_scrape?
 - TODO: combine all bus line scripts into one program
-- TODO: code optimization and review
+- TODO: use phantom browser instead of Chrome?
 - NEXT: scrape sports game scores and stats, develop consistency rating?
