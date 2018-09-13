@@ -26,12 +26,23 @@ def main():
     try:
         # Wait until the final element is loaded.
         WebDriverWait(browser, timeout).until(EC.visibility_of_element_located(
-            (By.XPATH, "//div[@class='overthrow table_container']")))
+            (By.XPATH, "//div[@id='all_active_franchises']")))
     except TimeoutException:
         print("Timed out waiting for page to load")
         browser.close()
 
+    # generate data frame with all team names as indexes
+    active_container = browser.find_element_by_id('all_active_franchises')
+    rows = active_container.find_elements_by_class_name('full_table')
+    team_names = list()
+    for r in rows:
+        team_name = r.find_element_by_css_selector('a')
+        team_names.append(team_name.text)
+
     browser.quit()
+
+    df = pd.DataFrame(index=team_names)
+    print(df)
 
 
 main()
