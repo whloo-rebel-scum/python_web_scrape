@@ -39,8 +39,6 @@ select_stop.select_by_value('22000')
 [print(o.text) for o in select_stop.options]
 '''
 
-# printing all stops with predicted arrival times
-lines = list()  # list of data frames of bus routes
 # the following lists will be put into data frames
 stops = list()  # list of names of bus stops
 times = list()  # when the next bus is predicted to arrive for each stop
@@ -125,7 +123,6 @@ for r in routes:
     print(Line, '\n')
     file_name = "bus_line_data/" + r + "_line.csv"
     Line.to_csv(file_name, encoding='utf-8', index=False)
-    lines.append(Line)  # TODO: use lines var?
 
     # clear lists
     in_out_bound.clear()

@@ -1,24 +1,24 @@
 Direction,Stop,Next Bus
-Outbound,Memorial Union & Main Island ,"10, 50m"
-Outbound,Anderson & Russell ,"13, 53m"
-Outbound,Anderson & Sunset ,"13, 53m"
-Outbound,Anderson & Amherst ,"14, 54m"
-Outbound,Anderson & Villanova ,"15, 55m"
-Outbound,Anderson & Hanover ,"16, 56m"
-Outbound,Alvarado & Anderson ,"17, 57m"
-Outbound,Alvarado & Sycamore ,"19, 59m"
-Outbound,Sycamore & Pepperwood Apts ,"0, 20m"
-Outbound,Sycamore & Antelope ,"0, 20m"
-Outbound,Sycamore & Chaparral Apts ,"0, 20m"
-Inbound,North Sycamore Loop ,"1, 21m"
-Inbound,Sycamore & Chaparral Apts ,"2, 22m"
-Inbound,Sycamore & Antelope ,"2, 22m"
-Inbound,Sycamore & Alvarado ,"3, 23m"
-Inbound,Alvarado & Sycamore ,"4, 23m"
-Inbound,Alvarado & Anderson ,"4, 24m"
-Inbound,Anderson & Hanover ,"6, 26m"
-Inbound,Anderson & Villanova ,"7, 27m"
-Inbound,Anderson & Amherst ,"7, 27m"
-Inbound,Anderson & Sunset ,"8, 28m"
-Inbound,Anderson & Russell ,"9, 29m"
-Inbound,Memorial Union & Howard ,"9, 29m"
+Outbound,Memorial Union & Main Island ,"24, 44m"
+Outbound,Anderson & Russell ,47m
+Outbound,Anderson & Sunset ,47m
+Outbound,Anderson & Amherst ,48m
+Outbound,Anderson & Villanova ,49m
+Outbound,Anderson & Hanover ,50m
+Outbound,Alvarado & Anderson ,51m
+Outbound,Alvarado & Sycamore ,52m
+Outbound,Sycamore & Pepperwood Apts ,53m
+Outbound,Sycamore & Antelope ,54m
+Outbound,Sycamore & Chaparral Apts ,54m
+Inbound,North Sycamore Loop ,"0, 55m"
+Inbound,Sycamore & Chaparral Apts ,"0, 55m"
+Inbound,Sycamore & Antelope ,"0, 56m"
+Inbound,Sycamore & Alvarado ,"1, 56m"
+Inbound,Alvarado & Sycamore ,"2, 57m"
+Inbound,Alvarado & Anderson ,"2, 58m"
+Inbound,Anderson & Hanover ,"2, 58m"
+Inbound,Anderson & Villanova ,"5, 60m"
+Inbound,Anderson & Amherst ,"6, 61m"
+Inbound,Anderson & Sunset ,"6, 62m"
+Inbound,Anderson & Russell ,"7, 62m"
+Inbound,Memorial Union & Howard ,"14, 54m"

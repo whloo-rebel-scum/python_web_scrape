@@ -1,22 +1,22 @@
 Direction,Stop,Next Bus
-Outbound,Memorial Union & East Island ,"15, 85m"
-Outbound,B & 4th  ,"17, 87m"
-Outbound,3rd & C ,"18, 88m"
-Outbound,3rd & E ,"20, 90m"
-Outbound,F & 4th  ,"21, 91m"
-Outbound,F & 6th Street  ,"22, 92m"
-Outbound,F & 8th ,"23, 93m"
-Inbound,F & 12th ,"23, 93m"
-Inbound,F & 14th ,"24, 94m"
-Inbound,F & Covell ,"26, 96m"
-Inbound,J & Menlo ,"26, 96m"
-Inbound,J & Drexel ,"28, 98m"
-Inbound,J & Alice ,29m
-Inbound,J & 8th ,30m
-Inbound,8th & G ,31m
-Inbound,F & 8th  ,32m
-Inbound,F & 4th  ,34m
-Inbound,3rd & E ,35m
-Inbound,3rd & C ,36m
-Inbound,B & 4th ,38m
-Inbound,Memorial Union & Howard ,"40, 110m"
+Outbound,Memorial Union & East Island ,"50, 110m"
+Outbound,B & 4th  ,"50, 110m"
+Outbound,3rd & C ,"2, 53m"
+Outbound,3rd & E ,"4, 55m"
+Outbound,F & 4th  ,"5, 55m"
+Outbound,F & 6th Street  ,"0, 6m"
+Outbound,F & 8th ,"1, 7m"
+Inbound,F & 12th ,"2, 8m"
+Inbound,F & 14th ,"3, 9m"
+Inbound,F & Covell ,"4, 10m"
+Inbound,J & Menlo ,"6, 12m"
+Inbound,J & Drexel ,"6, 12m"
+Inbound,J & Alice ,"7, 13m"
+Inbound,J & 8th ,"7, 13m"
+Inbound,8th & G ,"9, 15m"
+Inbound,F & 8th  ,"10, 16m"
+Inbound,F & 4th  ,"12, 18m"
+Inbound,3rd & E ,"13, 19m"
+Inbound,3rd & C ,"15, 21m"
+Inbound,B & 4th ,"16, 22m"
+Inbound,Memorial Union & Howard ,"15, 75m"

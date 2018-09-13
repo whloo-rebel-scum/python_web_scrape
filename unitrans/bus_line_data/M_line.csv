@@ -1,18 +1,18 @@
 Direction,Stop,Next Bus
-Outbound,Memorial Union  & Main Island ,"50, 120m"
-Outbound,B & 4th  ,52m
-Outbound,1st & C ,54m
-Outbound,Richards & Olive ,56m
-Outbound,Cowell & Research Park S ,57m
-Outbound,Drew & Cowell ,59m
-Inbound,Drew & Research Park Drive ,"1, 60m"
-Inbound,Research Park & Cowell ,"1, 60m"
-Inbound,Cowell & Halsey ,"2, 61m"
-Inbound,Cowell & Valdora ,"3, 63m"
-Inbound,Cowell & Drew ,"4, 64m"
-Inbound,Cowell & Research Park S ,"5, 64m"
-Inbound,Richards & Olive ,"7, 67m"
-Inbound,1st & D ,"9, 68m"
-Inbound,B & 4th ,"10, 70m"
-Inbound,Russell & A ,"11, 71m"
-Inbound,Memorial Union & Howard ,"15, 75m"
+Outbound,Memorial Union  & Main Island ,"24, 84m"
+Outbound,B & 4th  ,"26, 86m"
+Outbound,1st & C ,"26, 86m"
+Outbound,Richards & Olive ,"29, 89m"
+Outbound,Cowell & Research Park S ,"31, 91m"
+Outbound,Drew & Cowell ,"32, 92m"
+Inbound,Drew & Research Park Drive ,"33, 93m"
+Inbound,Research Park & Cowell ,"34, 94m"
+Inbound,Cowell & Halsey ,"35, 95m"
+Inbound,Cowell & Valdora ,"37, 97m"
+Inbound,Cowell & Drew ,"37, 97m"
+Inbound,Cowell & Research Park S ,"38, 98m"
+Inbound,Richards & Olive ,40m
+Inbound,1st & D ,42m
+Inbound,B & 4th ,42m
+Inbound,Russell & A ,44m
+Inbound,Memorial Union & Howard ,"49, 109m"

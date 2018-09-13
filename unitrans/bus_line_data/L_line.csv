@@ -1,39 +1,39 @@
 Direction,Stop,Next Bus
-Outbound,Silo & Haring Hall ,"50, 120m"
-Outbound,Hutchison & Art Building ,52m
-Outbound,Hutchison & Old Davis Road ,53m
-Outbound,B & 4th ,56m
-Outbound,B & 5th ,56m
-Outbound,B & 7th ,57m
-Outbound,8th & D ,57m
-Outbound,8th & G ,"1, 59m"
-Outbound,8th & J ,"1, 59m"
-Outbound,8th & L ,"3, 61m"
-Outbound,8th & Chestnut ,"3, 62m"
-Outbound,Pole Line & 8th ,"4, 63m"
-Outbound,Pole Line & Loyola ,"4, 63m"
-Inbound,Pole Line & Claremont ,"7, 65m"
-Inbound,Pole Line & Picasso ,"8, 66m"
-Inbound,Pole Line & Donner ,"8, 67m"
-Inbound,Moore & Pole Line ,"10, 68m"
-Inbound,Moore & Rockwell ,"10, 69m"
-Inbound,Moore & Raphael ,"10, 69m"
-Inbound,Moore & Pollock ,"12, 70m"
-Inbound,Monarch & Campbell ,"14, 72m"
-Inbound,Temple & Balsam Pl ,"14, 73m"
-Inbound,Tulip & Cascade Pl ,"15, 74m"
-Inbound,Loyola & Regis ,"16, 74m"
-Inbound,Loyola & Nutmeg ,"16, 75m"
-Inbound,Loyola & Whittier ,"17, 76m"
-Inbound,Pole Line & Wahl ,"18, 77m"
-Inbound,East 8th Street & Pole Line Road ,"19, 77m"
-Inbound,8th & Chestnut ,"19, 78m"
-Inbound,8th & L ,"21, 79m"
-Inbound,8th & J ,"22, 81m"
-Inbound,8th & G ,"22, 82m"
-Inbound,8th & D ,"24, 83m"
-Inbound,B & 7th ,"25, 84m"
-Inbound,B & 4th  ,"26, 86m"
-Inbound,Hutchison Drive & Old Davis Road ,"29, 88m"
-Inbound,Hutchison & Shields ,"30, 89m"
-Inbound,Silo & Center Island ,"40, 100m"
+Outbound,Silo & Haring Hall ,"24, 84m"
+Outbound,Hutchison & Art Building ,"26, 86m"
+Outbound,Hutchison & Old Davis Road ,"27, 87m"
+Outbound,B & 4th ,"29, 89m"
+Outbound,B & 5th ,"30, 90m"
+Outbound,B & 7th ,"31, 91m"
+Outbound,8th & D ,"32, 92m"
+Outbound,8th & G ,"33, 93m"
+Outbound,8th & J ,"34, 94m"
+Outbound,8th & L ,"35, 95m"
+Outbound,8th & Chestnut ,"35, 95m"
+Outbound,Pole Line & 8th ,"36, 96m"
+Outbound,Pole Line & Loyola ,"37, 97m"
+Inbound,Pole Line & Claremont ,39m
+Inbound,Pole Line & Picasso ,40m
+Inbound,Pole Line & Donner ,40m
+Inbound,Moore & Pole Line ,42m
+Inbound,Moore & Rockwell ,42m
+Inbound,Moore & Raphael ,43m
+Inbound,Moore & Pollock ,44m
+Inbound,Monarch & Campbell ,46m
+Inbound,Temple & Balsam Pl ,46m
+Inbound,Tulip & Cascade Pl ,47m
+Inbound,Loyola & Regis ,48m
+Inbound,Loyola & Nutmeg ,49m
+Inbound,Loyola & Whittier ,50m
+Inbound,Pole Line & Wahl ,50m
+Inbound,East 8th Street & Pole Line Road ,51m
+Inbound,8th & Chestnut ,52m
+Inbound,8th & L ,53m
+Inbound,8th & J ,55m
+Inbound,8th & G ,56m
+Inbound,8th & D ,57m
+Inbound,B & 7th ,58m
+Inbound,B & 4th  ,"0, 59m"
+Inbound,Hutchison Drive & Old Davis Road ,"2, 62m"
+Inbound,Hutchison & Shields ,"3, 63m"
+Inbound,Silo & Center Island ,"14, 74m"

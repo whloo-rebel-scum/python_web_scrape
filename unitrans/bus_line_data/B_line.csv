@@ -1,17 +1,17 @@
 Direction,Stop,Next Bus
-Outbound,Memorial Union & East Island ,"51, 121m"
-Outbound,Sycamore & University Mall ,55m
-Outbound,Sycamore & 8th ,56m
-Outbound,Sycamore & Cornell ,56m
-Outbound,Sycamore & Bucknell ,57m
-Outbound,Sycamore & Villanova ,57m
-Outbound,Sycamore & Radcliffe ,58m
-Inbound,Radcliffe & Apple ,59m
-Inbound,Drake & Drake  Apts ,"0, 60m"
-Inbound,Sycamore & Drake ,"1, 61m"
-Inbound,Sycamore & Notre Dame ,"1, 61m"
-Inbound,Sycamore & Colby Dr. ,"2, 62m"
-Inbound,Sycamore & Cornell ,"3, 63m"
-Inbound,Sycamore & 8th ,"3, 63m"
-Inbound,Sycamore & Wake Forest ,"4, 64m"
-Inbound,Memorial Union & Howard ,"4, 64m"
+Outbound,Memorial Union & East Island ,"25, 85m"
+Outbound,Sycamore & University Mall ,"29, 89m"
+Outbound,Sycamore & 8th ,"29, 89m"
+Outbound,Sycamore & Cornell ,"30, 90m"
+Outbound,Sycamore & Bucknell ,"30, 90m"
+Outbound,Sycamore & Villanova ,"31, 91m"
+Outbound,Sycamore & Radcliffe ,"31, 91m"
+Inbound,Radcliffe & Apple ,"32, 92m"
+Inbound,Drake & Drake  Apts ,"34, 94m"
+Inbound,Sycamore & Drake ,"35, 95m"
+Inbound,Sycamore & Notre Dame ,"35, 95m"
+Inbound,Sycamore & Colby Dr. ,"36, 96m"
+Inbound,Sycamore & Cornell ,"36, 96m"
+Inbound,Sycamore & 8th ,"37, 97m"
+Inbound,Sycamore & Wake Forest ,"38, 98m"
+Inbound,Memorial Union & Howard ,"45, 105m"
