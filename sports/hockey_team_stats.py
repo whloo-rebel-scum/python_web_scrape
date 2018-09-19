@@ -40,7 +40,9 @@ def main():
         team_names.append(team_name.text)
     df = pd.DataFrame(index=team_names)
 
-    # assign all values to data frame first without labels?
+    # also gather all data in each row, append to data frame
+    #   extract data from each row
+    #   append to data frame
 
     # assign labels for columns
     row = rows[0].find_elements_by_css_selector('td')
@@ -48,9 +50,10 @@ def main():
     for r in row:
         col_labels.append(r.get_attribute('data-stat'))
     print(col_labels)
-    df.columns = col_labels
 
-    print(df)
+    # df.columns = col_labels  # ValueError: Length mismatch: Expected axis has 0 elements, new values have 16 elements
+
+    # print(df)
 
     # then add all other data, row by row
     browser.quit()
