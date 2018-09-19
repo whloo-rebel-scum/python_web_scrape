@@ -38,11 +38,21 @@ def main():
     for r in rows:
         team_name = r.find_element_by_css_selector('a')
         team_names.append(team_name.text)
-
-    browser.quit()
-
     df = pd.DataFrame(index=team_names)
+
+    # assign all values to data frame first without labels?
+
+    # assign labels for columns
+    row = rows[0].find_elements_by_css_selector('td')
+    col_labels = list()
+    for r in row:
+        col_labels.append(r.get_attribute('data-stat'))
+    print(col_labels)
+    df.columns = col_labels
+
     print(df)
 
+    # then add all other data, row by row
+    browser.quit()
 
 main()

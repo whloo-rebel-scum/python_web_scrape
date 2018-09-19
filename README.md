@@ -19,6 +19,7 @@ TODO: gather data from Unitrans Website using Selenium: https://unitrans.ucdavis
 
 TODO: scrape sports game scores and stats, develop consistency rating?
 - https://www.hockey-reference.com/
+    - TODO: scrape basic team data for active and defunct teams
 - https://www.baseball-reference.com/
 - https://www.pro-football-reference.com/
 - https://www.basketball-reference.com/
