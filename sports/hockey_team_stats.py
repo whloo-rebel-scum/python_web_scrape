@@ -32,17 +32,22 @@ def main():
         browser.close()
 
     # generate data frame with all team names as indexes
-    active_container = browser.find_element_by_id('all_active_franchises')
-    rows = active_container.find_elements_by_class_name('full_table')
-    team_names = list()
-    for r in rows:
-        team_name = r.find_element_by_css_selector('a')
-        team_names.append(team_name.text)
-    df = pd.DataFrame(index=team_names)
-
     # also gather all data in each row, append to data frame
     #   extract data from each row
     #   append to data frame
+    active_container = browser.find_element_by_id('all_active_franchises')
+    rows = active_container.find_elements_by_class_name('full_table')
+    team_names = list()
+    stat_list = list()  # should be a list of lists
+    for r in rows:
+        team_name = r.find_element_by_css_selector('a')
+        team_names.append(team_name.text)
+        print(team_name.text, ": ")
+        web_e_stat_list = list()
+        for s in r.find_elements_by_css_selector('td'):
+            web_e_stat_list.append(s.text)
+        print(web_e_stat_list)
+        stat_list.append(web_e_stat_list)
 
     # assign labels for columns
     row = rows[0].find_elements_by_css_selector('td')
@@ -51,11 +56,11 @@ def main():
         col_labels.append(r.get_attribute('data-stat'))
     print(col_labels)
 
-    # df.columns = col_labels  # ValueError: Length mismatch: Expected axis has 0 elements, new values have 16 elements
+    df = pd.DataFrame(stat_list, columns=col_labels, index=team_names)
+    print(df)
 
-    # print(df)
-
-    # then add all other data, row by row
+    df.to_csv("hockey_data/all_active_franchise_data.csv", encoding='utf-8')
     browser.quit()
+
 
 main()
