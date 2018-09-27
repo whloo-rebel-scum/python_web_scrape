@@ -101,4 +101,5 @@ def main():
     defunct_franchise_scrape(browser)
     browser.quit()
 
+
 main()
