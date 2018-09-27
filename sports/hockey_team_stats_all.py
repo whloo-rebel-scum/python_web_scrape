@@ -13,6 +13,10 @@ import time
 # - place them in panda dataframes for further analysis
 # - https://www.hockey-reference.com/teams/
 
+
+# input: browser
+# Scrapes basic team data for all active franchises
+# output: return list of links to individual team pages: TODO
 def active_franchise_scrape(browser):
     start_time = time.clock()
 
@@ -46,6 +50,9 @@ def active_franchise_scrape(browser):
     df.to_csv("hockey_data/all_active_franchise_data.csv", encoding='utf-8')
 
 
+# input: browser
+# Scrapes basic team data for all defunct franchises
+# output: return list of links to individual team pages: TODO
 def defunct_franchise_scrape(browser):
     start_time = time.clock()
 
@@ -99,6 +106,9 @@ def main():
 
     active_franchise_scrape(browser)
     defunct_franchise_scrape(browser)
+    # TODO: click on each team name and scrape stats for individual teams
+    # get href attribute: print(team_name.get_attribute('href'))
+    # use lists returned from above two functions, explore each page to get more data
     browser.quit()
 
 
