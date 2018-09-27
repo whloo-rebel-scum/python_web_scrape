@@ -19,7 +19,7 @@ import time
 # output: return list of links to individual team pages: TODO
 def active_franchise_scrape(browser):
     start_time = time.clock()
-
+    links = list()  # list to return to main function
     # generate gather team names and data from each row
     active_container = browser.find_element_by_id('all_active_franchises')
     rows = active_container.find_elements_by_class_name('full_table')
@@ -28,6 +28,7 @@ def active_franchise_scrape(browser):
     for r in rows:  # TODO: simplify loop?
         team_name = r.find_element_by_css_selector('a')
         team_names.append(team_name.text)
+        links.append(team_name.get_attribute('href'))
         print(team_name.text, ": ")
         web_e_stat_list = list()
         for s in r.find_elements_by_css_selector('td'):
@@ -48,6 +49,7 @@ def active_franchise_scrape(browser):
     # create data frame, inserting all elements at once
     df = pd.DataFrame(stat_list, columns=col_labels, index=team_names)
     df.to_csv("hockey_data/all_active_franchise_data.csv", encoding='utf-8')
+    return links
 
 
 # input: browser
@@ -55,7 +57,7 @@ def active_franchise_scrape(browser):
 # output: return list of links to individual team pages: TODO
 def defunct_franchise_scrape(browser):
     start_time = time.clock()
-
+    links = list()
     # generate gather team names and data from each row
     active_container = browser.find_element_by_id('all_defunct_franchises')
     rows = active_container.find_elements_by_class_name('full_table')
@@ -64,6 +66,7 @@ def defunct_franchise_scrape(browser):
     for r in rows:  # TODO: simplify loop?
         team_name = r.find_element_by_css_selector('a')
         team_names.append(team_name.text)
+        links.append(team_name.get_attribute('href'))
         print(team_name.text, ": ")
         web_e_stat_list = list()
         for s in r.find_elements_by_css_selector('td'):
@@ -84,6 +87,7 @@ def defunct_franchise_scrape(browser):
     # create data frame, inserting all elements at once
     df = pd.DataFrame(stat_list, columns=col_labels, index=team_names)
     df.to_csv("hockey_data/all_defunct_franchise_data.csv", encoding='utf-8')
+    return links
 
 
 def main():
@@ -104,12 +108,14 @@ def main():
         print("Timed out waiting for page to load")
         browser.close()
 
-    active_franchise_scrape(browser)
-    defunct_franchise_scrape(browser)
+    active_links = active_franchise_scrape(browser)
+    defunct_links = defunct_franchise_scrape(browser)
     # TODO: click on each team name and scrape stats for individual teams
     # get href attribute: print(team_name.get_attribute('href'))
     # use lists returned from above two functions, explore each page to get more data
     browser.quit()
+    print(active_links)
+    print(defunct_links)
 
 
 main()
