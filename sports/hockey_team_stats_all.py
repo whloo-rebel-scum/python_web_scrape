@@ -90,6 +90,19 @@ def defunct_franchise_scrape(browser):
     return links
 
 
+def single_team_scrape(browser):
+    start_time = time.clock()
+    # TODO: selenium.common.exceptions.InvalidSelectorException: Message: invalid selector: Compound class names not permitted
+    container = browser.find_element_by_class_name('overthrow table_container')
+    table = container.find_element_by_css_selector('tr')  # table is composed of rows
+    stat_list = list()
+    for r in table:
+        # get data-stat attribute for each th/td
+        for e in r.find_elements_by_css_selector('th', 'td'):
+            print(e.text)
+    print("Scraped in --- %s seconds ---" % round(time.clock() - start_time, 2))
+
+
 def main():
 
     option = webdriver.ChromeOptions()
@@ -113,9 +126,25 @@ def main():
     # TODO: click on each team name and scrape stats for individual teams
     # get href attribute: print(team_name.get_attribute('href'))
     # use lists returned from above two functions, explore each page to get more data
-    browser.quit()
     print(active_links)
     print(defunct_links)
+    for l in active_links:
+
+        # load page
+        browser.get(l)
+        timeout = 20
+        try:
+            # Wait until the final element is loaded.
+            WebDriverWait(browser, timeout).until(EC.visibility_of_element_located(
+                (By.XPATH, "//div[@class='overthrow table_container']")))
+        except TimeoutException:
+            print("Timed out waiting for page to load")
+            browser.close()
+
+        # scrape individual team data, create separate function
+        single_team_scrape(browser)
+
+    browser.quit()
 
 
 main()
