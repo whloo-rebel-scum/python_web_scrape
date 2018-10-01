@@ -94,17 +94,21 @@ def single_team_scrape(browser):
     start_time = time.clock()
     container = browser.find_element_by_class_name('table_outer_container')
     # TODO: need to separate thead from tbody
-    table = container.find_elements_by_css_selector('tr')  # table is composed of rows
-    print(table[0].get_attribute('innerHTML'))
-    '''
+    # parse thead to get aria-labels
+    table = container.find_element_by_css_selector('tbody')  # table is composed of rows
+    rows = table.find_elements_by_css_selector('tr')
     stat_list = list()
-    for r in table:
+
+    for r in rows:  # iterate over each row
         # get data-stat attribute for each th/td
-        elements = r.find_elements_by_xpath("//tbody/*")
-        print(len(elements))
-        for e in elements:
-            print(e.get_attribute('outerHTML'))
-    '''
+        # th = r.find_element_by_tag_name('th')
+        # print(th.text)
+        td_list = r.find_elements_by_tag_name('td')
+        print(td_list)  # TODO: why is list empty?
+        break
+        # another for loop to iterate over each entry in each row
+        # append each entry's text to a list, then append that list to stat_list
+
     print("Scraped in --- %s seconds ---" % round(time.clock() - start_time, 2))
 
 
