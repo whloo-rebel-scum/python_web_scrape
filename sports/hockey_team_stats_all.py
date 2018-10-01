@@ -92,14 +92,19 @@ def defunct_franchise_scrape(browser):
 
 def single_team_scrape(browser):
     start_time = time.clock()
-    # TODO: selenium.common.exceptions.InvalidSelectorException: Message: invalid selector: Compound class names not permitted
-    container = browser.find_element_by_class_name('overthrow table_container')
-    table = container.find_element_by_css_selector('tr')  # table is composed of rows
+    container = browser.find_element_by_class_name('table_outer_container')
+    # TODO: need to separate thead from tbody
+    table = container.find_elements_by_css_selector('tr')  # table is composed of rows
+    print(table[0].get_attribute('innerHTML'))
+    '''
     stat_list = list()
     for r in table:
         # get data-stat attribute for each th/td
-        for e in r.find_elements_by_css_selector('th', 'td'):
-            print(e.text)
+        elements = r.find_elements_by_xpath("//tbody/*")
+        print(len(elements))
+        for e in elements:
+            print(e.get_attribute('outerHTML'))
+    '''
     print("Scraped in --- %s seconds ---" % round(time.clock() - start_time, 2))
 
 
@@ -122,12 +127,12 @@ def main():
         browser.close()
 
     active_links = active_franchise_scrape(browser)
-    defunct_links = defunct_franchise_scrape(browser)
+    # defunct_links = defunct_franchise_scrape(browser)
     # TODO: click on each team name and scrape stats for individual teams
     # get href attribute: print(team_name.get_attribute('href'))
     # use lists returned from above two functions, explore each page to get more data
     print(active_links)
-    print(defunct_links)
+    # print(defunct_links)
     for l in active_links:
 
         # load page
