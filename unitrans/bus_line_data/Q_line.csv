@@ -1,44 +1,44 @@
 Direction,Stop,Next Bus
-Clockwise,Memorial Union  & Main Island ,"24, 54m"
-Clockwise,Russell & Sycamore ,"28, 58m"
-Clockwise,Russell & Arthur ,"0, 29m"
-Clockwise,Arlington & Bucklebury ,"1, 30m"
-Clockwise,Arlington & Calaveras ,"1, 31m"
-Clockwise,Arlington & Shasta ,"3, 32m"
-Clockwise,Arlington & Cabot ,"3, 32m"
-Clockwise,Arlington & Lake ,"4, 33m"
-Clockwise,Lake & Wood Circle ,"4, 33m"
-Clockwise,Lake & Covell ,"5, 34m"
-Clockwise,Covell & West Bike Path ,"6, 35m"
-Clockwise,Covell & Denali ,"7, 36m"
-Clockwise,Covell & Shasta ,"8, 37m"
-Clockwise,Covell & Sycamore ,"10, 39m"
-Clockwise,Anderson & Hanover ,"12, 41m"
-Clockwise,Villanova & Anderson ,"13, 42m"
-Clockwise,14th & Oak ,"13, 42m"
-Clockwise,14th & B ,"15, 44m"
-Clockwise,F & 14th ,"16, 45m"
-Clockwise,F & Covell ,"17, 46m"
-Clockwise,Covell & J ,"17, 46m"
-Clockwise,Covell & Pole Line ,"19, 48m"
-Clockwise,Covell & Wright ,"22, 51m"
-Clockwise,Covell & Alhambra ,"22, 51m"
-Clockwise,Covell & Mace ,"24, 53m"
-Clockwise,Mace & 2nd ,"25, 54m"
-Clockwise,Mace & Chiles ,"25, 54m"
-Clockwise,Cowell & Sunrise ,"1, 28m"
-Clockwise,Cowell & Ensenada ,"2, 29m"
-Clockwise,Cowell & La Vida ,"3, 30m"
-Clockwise,Cowell & Ohlone ,"4, 31m"
-Clockwise,Drummond & Cowell ,"5, 32m"
-Clockwise,Drummond & Lillard ,"6, 33m"
-Clockwise,Lillard & Evans Ct ,"6, 34m"
-Clockwise,Lillard & Farragut ,"7, 34m"
-Clockwise,Pole Line & Cowell ,"8, 35m"
-Clockwise,5th & Pole Line ,"10, 37m"
-Clockwise,5th & Davis PW Corp Yard ,"10, 37m"
-Clockwise,5th Street & L Street ,"11, 38m"
-Clockwise,5th & I ,"12, 39m"
-Clockwise,5th & D ,"14, 41m"
-Clockwise,Russell & A ,"14, 41m"
-Clockwise,Memorial Union & Howard ,"14, 44m"
+Clockwise,Memorial Union  & Main Island ,"8, 38m"
+Clockwise,Russell & Sycamore ,43m
+Clockwise,Russell & Arthur ,44m
+Clockwise,Arlington & Bucklebury ,46m
+Clockwise,Arlington & Calaveras ,46m
+Clockwise,Arlington & Shasta ,47m
+Clockwise,Arlington & Cabot ,48m
+Clockwise,Arlington & Lake ,48m
+Clockwise,Lake & Wood Circle ,49m
+Clockwise,Lake & Covell ,50m
+Clockwise,Covell & West Bike Path ,50m
+Clockwise,Covell & Denali ,51m
+Clockwise,Covell & Shasta ,53m
+Clockwise,Covell & Sycamore ,55m
+Clockwise,Anderson & Hanover ,57m
+Clockwise,Villanova & Anderson ,58m
+Clockwise,14th & Oak ,59m
+Clockwise,14th & B ,60m
+Clockwise,F & 14th ,61m
+Clockwise,F & Covell ,62m
+Clockwise,Covell & J ,"1, 64m"
+Clockwise,Covell & Pole Line ,"2, 65m"
+Clockwise,Covell & Wright ,"5, 67m"
+Clockwise,Covell & Alhambra ,"6, 68m"
+Clockwise,Covell & Mace ,"7, 69m"
+Clockwise,Mace & 2nd ,"8, 71m"
+Clockwise,Mace & Chiles ,"11, 73m"
+Clockwise,Cowell & Sunrise ,"12, 74m"
+Clockwise,Cowell & Ensenada ,"13, 75m"
+Clockwise,Cowell & La Vida ,"13, 76m"
+Clockwise,Cowell & Ohlone ,"14, 76m"
+Clockwise,Drummond & Cowell ,"15, 77m"
+Clockwise,Drummond & Lillard ,"16, 78m"
+Clockwise,Lillard & Evans Ct ,"17, 79m"
+Clockwise,Lillard & Farragut ,"18, 80m"
+Clockwise,Pole Line & Cowell ,"19, 81m"
+Clockwise,5th & Pole Line ,"21, 83m"
+Clockwise,5th & Davis PW Corp Yard ,"21, 83m"
+Clockwise,5th Street & L Street ,"22, 84m"
+Clockwise,5th & I ,"23, 85m"
+Clockwise,5th & D ,"24, 87m"
+Clockwise,Russell & A ,"25, 88m"
+Clockwise,Memorial Union & Howard ,"28, 58m"

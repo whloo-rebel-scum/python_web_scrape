@@ -1,17 +1,17 @@
 Direction,Stop,Next Bus
-Outbound,Memorial Union & East Island ,"49, 109m"
-Outbound,Russell & Sycamore ,53m
-Outbound,Russell & Arthur ,54m
-Inbound,Russell & Arlington Farm ,"1, 57m"
-Inbound,Lake & Portage Bay ,"3, 58m"
-Inbound,Lake & Salem ,"4, 59m"
-Inbound,Lake & Westlake Plaza ,"4, 59m"
-Inbound,Arlington & Lake ,"5, 61m"
-Inbound,Arlington & Cabot ,"6, 61m"
-Inbound,Arlington & Shasta ,"6, 62m"
-Inbound,Humboldt & Imperial  ,"8, 63m"
-Inbound,Humboldt & Arthur ,"8, 64m"
-Inbound,Arthur & North Adams ,"9, 65m"
-Inbound,Arthur & Alameda ,"10, 66m"
-Inbound,Russell & Sycamore ,"12, 68m"
-Inbound,Memorial Union & Howard ,"14, 74m"
+Outbound,Memorial Union & East Island ,"8, 33m"
+Outbound,Russell & Sycamore ,39m
+Outbound,Russell & Arthur ,40m
+Inbound,Russell & Arlington Farm ,42m
+Inbound,Lake & Portage Bay ,44m
+Inbound,Lake & Salem ,45m
+Inbound,Lake & Westlake Plaza ,45m
+Inbound,Arlington & Lake ,46m
+Inbound,Arlington & Cabot ,47m
+Inbound,Arlington & Shasta ,48m
+Inbound,Humboldt & Imperial  ,49m
+Inbound,Humboldt & Arthur ,50m
+Inbound,Arthur & North Adams ,50m
+Inbound,Arthur & Alameda ,51m
+Inbound,Russell & Sycamore ,54m
+Inbound,Memorial Union & Howard ,"33, 58m"
